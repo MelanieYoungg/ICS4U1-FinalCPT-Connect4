@@ -38,7 +38,7 @@ public class C4HelpScreen extends JPanel{
 		this.setLayout(null);
 		
 		helptextarea = new JTextArea();
-		helptextarea.setText("\n  How to Play \n ");
+		helptextarea.setText("\n  How to play:\n  Players will take turns dropping their game pieces into the board.\n  Be mindful of gravity!\n  The first player to get 4 game pieces in a row wins.\n  The 4 pieces can be arranged horizontally, vertically, or diagonally.\n\n  Controls:\n  Click and drag the icon of your game piece to the board.\n  Drop the game piece by releasing your mouse.\n  You can drop the piece anywhere in the desired column.\n\n  Test it out on the right -->");
 		helptextarea.setEditable(false);
 		helptextarea.setSize(620,620);
 		helptextarea.setLocation(50,50);
