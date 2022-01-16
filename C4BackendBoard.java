@@ -94,7 +94,7 @@ public class C4BackendBoard{
 	}
 		
 	//CONSTRUCTOR
-	public connectFourBoard(){
+	public C4BackendBoard(){
 		intTurn = 0;
 		for(int intRow = 0; intRow < 6; intRow++){
 			for(int intCol = 0; intCol < 7; intCol++){
