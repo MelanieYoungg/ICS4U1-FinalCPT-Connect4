@@ -1,33 +1,112 @@
 public class connectFourBoard{
-	public static void main(String[] args){
-		//PROPERTIES
-		int intBoard[][] = new int[6][7];
-		int intTurn;
+	//PROPERTIES
+	int intBoard[][] = new int[6][7];
+	int intTurn;
 		
-		//Add Player
-		public void addPosition(int intCol){
-			
+	//Add Player
+	public boolean addPosition(int intCol){
+		if(intBoard[0][intCol] != 0){
+			return false;
 		}
-		
-		//Generates Valid Positions
-		public int[] validPositions(){
-			int intValidPosition[] = new int[7];
 			
-			for(int intCount0=0; intCount0<7; intCount0++){
-				int intValidPosition[intCount0] = null;
-				for(int intCount1=0; intCount1<6; intCount1++){
-					int positionalValue = intBoard[intCount1][intCount0];
-					if(positionalValue == 0){
-						
+		for(int intRow = 0; intRow < 6; intRow++){
+			int intPiece = intBoard[intRow][intCol];
+			if(intPiece == 0){
+				if(intTurn % 2 == 0){
+					intBoard[intRow][intCol] = 0;
+				}else{
+					intBoard[intRow][intCol] = 1;
+				}
+				return true;
+			}
+		}
+		return false;
+	}
+		
+	//Check For Winner 
+	public boolean checkWinner(int intPlayer ){
+		//Row
+		for(int intRow = 0; intRow < 6; intRow++){
+			for(int intCol = 0; intCol < 7-3; intCol++){
+				for(int intAdder = 0; intAdder < 4; intAdder++){
+					if(intBoard[intRow][intCol+intAdder] != intPlayer){
+						break;
+					}else if(intAdder == 3){
+						return true;
+					}
+				}
+			}
+		}			
+		
+		//Col
+		for(int intRow = 0; intRow < 6-3; intRow++){
+			for(int intCol = 0; intCol < 7; intCol++){
+				for(int intAdder = 0; intAdder < 4; intAdder++){
+					if(intBoard[intRow+intAdder][intCol] != intPlayer){
+						break;
+					}else if(intAdder == 3){
+						return true;
 					}
 				}
 			}
 		}
 		
-		//Check If There Is a Winner: 0 - no winner, 1 - player 1 winner, 2 - player 2 winner
-		public int checkWinner ()
+		//Diagnal L-R
+		for(int intRow = 3; intRow < 6; intRow++){
+			for(int intCol = 0; intCol < 7 - 3; intCol++){
+				for(int intAdder = 0; intAdder < 4; intAdder++){
+					if(intBoard[intRow-intAdder][intCol+intAdder] != intPlayer){
+						break;
+					}else if(intAdder == 3){
+						return true;
+					}
+				}
+			}
+		}
 		
-		//CONSTRUCTOR
-		public connectFourBoard(){}
+		//Diagnal R-L
+		for(int intRow = 0; intRow < 6 - 3; intRow++){
+			for(int intCol = 0; intCol < 7 - 3; intCol++){
+				for(int intAdder = 0; intAdder < 4; intAdder++){
+					if(intBoard[intRow+intAdder][intCol+intAdder] != intPlayer){
+						break;
+					}else if(intAdder == 3){
+						return true;
+					}
+				}
+			}
+		}
+		
+		return false;
+	}
+		
+	//Printout Screen (used for troubleshooting)		
+	public void printScreen(){
+		System.out.println("0\t1\t2\t3\t4\t5\t6");
+		System.out.println("------------------------------------------------------------------------------------------");
+		for(int intRow = 0; intRow < 6; intRow++){
+			String strRow = "";
+			for(int intCol = 0; intCol < 7; intCol++){					
+				strRow += intBoard[intRow][intCol] + "\t";
+			}
+			System.out.println(strRow);
+		}
+	}
+		
+	//CONSTRUCTOR
+	public connectFourBoard(){
+		intTurn = 0;
+		for(int intRow = 0; intRow < 6; intRow++){
+			for(int intCol = 0; intCol < 7; intCol++){
+				intBoard[intRow][intCol] = 0;
+			}
+		}
+	}
+		
+	//Main Method
+	public static void main(String[] args){
+		System.out.println("Hi:");
 	}
 }
+
+
