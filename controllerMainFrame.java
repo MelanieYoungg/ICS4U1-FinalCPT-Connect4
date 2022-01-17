@@ -3,7 +3,7 @@ import javax.swing.*;
 import java.awt.event.*;
 import javax.swing.event.*;
 
-public class C4MainFrame implements ActionListener,ChangeListener {
+public class controllerMainFrame implements ActionListener,ChangeListener {
 	//using this to swap out panels so we can see how they look, can be used later for the main/controller 
 	//properties
 	public JFrame theframe;
@@ -19,7 +19,7 @@ public class C4MainFrame implements ActionListener,ChangeListener {
 	
 	
 	//constructor
-	public C4MainFrame(){
+	public controllerMainFrame(){
 		theframe = new JFrame("Connect 4");
 		
 		thepanel.setPreferredSize(new Dimension(1280, 720));
@@ -37,6 +37,6 @@ public class C4MainFrame implements ActionListener,ChangeListener {
 	
 	//main program
 	public static void main(String[] args){
-		new C4MainFrame();
+		new controllerMainFrame();
 	}
 }
