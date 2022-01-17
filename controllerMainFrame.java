@@ -7,7 +7,9 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 	//using this to swap out panels so we can see how they look, can be used later for the main/controller 
 	//properties
 	public JFrame theframe;
-	C4GameplayScreen thepanel = new C4GameplayScreen();
+	C4GameplayScreen gameplaypanel = new C4GameplayScreen();
+	C4HelpScreen helppanel = new C4HelpScreen();
+	String strCurrentScreen = "gameplay";
 	
 	//methods
 	public void actionPerformed(ActionEvent evt){
@@ -22,10 +24,16 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 	public controllerMainFrame(){
 		theframe = new JFrame("Connect 4");
 		
-		thepanel.setPreferredSize(new Dimension(1280, 720));
-		
-		theframe.setContentPane(thepanel);
-		theframe.pack();
+		if(strCurrentScreen.equalsIgnoreCase("gameplay")){
+			gameplaypanel.setPreferredSize(new Dimension(1280, 720));
+			theframe.setContentPane(gameplaypanel);
+			theframe.pack();
+			
+		}else if(strCurrentScreen.equalsIgnoreCase("help")){
+			helppanel.setPreferredSize(new Dimension(1280, 720));
+			theframe.setContentPane(helppanel);
+			theframe.pack();
+		}
 		
 		theframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		theframe.setVisible(true);
