@@ -2,20 +2,29 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 import javax.swing.event.*;
+import java.io.*;
 
 
 public class controllerMainFrame implements ActionListener,ChangeListener {
+	//PROPERTIES
+	JFrame theframe = new JFrame("Connect 4");
+	
+	//Screens
 	//using this to swap out panels so we can see how they look, can be used later for the main/controller 
-	//properties
-	public JFrame theframe;
-	C4WinnerLoserScreen gameplaypanel = new C4WinnerLoserScreen();
+	C4GameplayScreen gameplaypanel = new C4GameplayScreen();
 	C4HelpScreen helppanel = new C4HelpScreen();
 	C4StartMenu startMenu = new C4StartMenu();
+	C4WinnerLoserScreen winnerLoserScreen = new C4WinnerLoserScreen();
+	C4ThemeSelectionScreen themeSelectionScreen = new C4ThemeSelectionScreen();
 	String strCurrentScreen = "";
-	boolean isServer = false;
 	
-	//methods
+	//Networking Properties
+	boolean isServer;
+	SuperSocketMaster ssm;
+	
+	//METHODS
 	public void actionPerformed(ActionEvent evt){
+		//C4StartMenu.java
 		if(evt.getSource() == startMenu.serverButton){
 			startMenu.serverButton.setEnabled(false); 
 			startMenu.clientButton.setVisible(false);
@@ -51,36 +60,72 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 			helppanel.setPreferredSize(new Dimension(1280, 720));
 			theframe.setContentPane(helppanel);
 			theframe.pack();
-			    
 		 }
+		 
+		//C4WinnerLoserScreen.java
+		else if(evt.getSource() == winnerLoserScreen.playAgainButton){
+			gameplaypanel.setPreferredSize(new Dimension(1280, 720));
+			theframe.setContentPane(gameplaypanel);
+			theframe.pack();
+		}else if(evt.getSource() == winnerLoserScreen.disconnectButton){
+			//ssm.disconnect();
+			startMenu.setPreferredSize(new Dimension(1280, 720));
+			theframe.setContentPane(startMenu);
+			theframe.pack();
+		}
 		
+		//C4ThemeSelectionScreen.java
+		else if(evt.getSource() == themeSelectionScreen.christmasButton || evt.getSource() == themeSelectionScreen.originalButton || evt.getSource() == themeSelectionScreen.easterButton){
+			try{
+				PrintWriter txtTheme = new PrintWriter(new FileWriter("theme.txt", true));
+				
+				String strFileData = "Original,OriginalBG.jpg,OriginalBoard.png,P1original.png,P2original.png\nChristmas,ChristmasBG.jpg,ChristmasBoard.png,P1christmas.png,P2christmas.png\nEaster,EasterBG.jpg,EasterBoard.png,P1easter.png,P2easter.png\n";
+				if(evt.getSource() == themeSelectionScreen.christmasButton){
+					txtTheme.println(strFileData + "Current,christmas");
+				}else if(evt.getSource() == themeSelectionScreen.originalButton){
+					txtTheme.println(strFileData + "Current,original");
+				}else if(evt.getSource() == themeSelectionScreen.easterButton){
+					txtTheme.println(strFileData + "Current,easter");
+				}
+				txtTheme.close();
+			}catch(IOException e){
+				System.out.println("File not found");
+			}
+		}
 	}
-	public void stateChanged(ChangeEvent evt){
-		
-	}
+	public void stateChanged(ChangeEvent evt){}
 	
-	
-	//constructor
+	//CONSTRUCTOR
 	public controllerMainFrame(){
-		theframe = new JFrame("Connect 4");
 		startMenu.setPreferredSize(new Dimension(1280, 720));
+		
+		//Action Listener for Start Menu
 		startMenu.userName.addActionListener(this);
 		startMenu.serverButton.addActionListener(this);
 		startMenu.clientButton.addActionListener(this);
 		startMenu.playButton.addActionListener(this);
 		startMenu.helpButton.addActionListener(this);
-		theframe.setContentPane(startMenu);
-		theframe.pack();
 		
+		//Action Listener for Winner Loser Screen
+		winnerLoserScreen.playAgainButton.addActionListener(this);
+		winnerLoserScreen.disconnectButton.addActionListener(this);
+		
+		//Action Listener for Theme Selection
+		themeSelectionScreen.christmasButton.addActionListener(this);
+		themeSelectionScreen.originalButton.addActionListener(this);
+		themeSelectionScreen.easterButton.addActionListener(this);		
+		
+		//Boiler Plate Code
 		theframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		theframe.setVisible(true);
 		theframe.setResizable(false);
-
 		
-		
+		//Used for Swapping Panels
+		theframe.setContentPane(startMenu);
+		theframe.pack();
 	}
 	
-	//main program
+	//MAIN PROGRAM
 	public static void main(String[] args){
 		new controllerMainFrame();
 	}
