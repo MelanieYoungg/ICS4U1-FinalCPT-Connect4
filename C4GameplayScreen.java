@@ -3,8 +3,10 @@ import javax.swing.*;
 import java.io.*;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.awt.event.*;
+import javax.swing.event.*;
 
-public class C4GameplayScreen extends JPanel{
+public class C4GameplayScreen extends JPanel implements ActionListener, MouseListener, MouseMotionListener{
 	//properties
 	String strLine = "";
 	String strGetTheme[];
@@ -19,18 +21,32 @@ public class C4GameplayScreen extends JPanel{
 	BufferedImage theboard = null;
 	BufferedImage player1piece = null;
 	BufferedImage player2piece = null;
+	Timer thetimer = new Timer(1000/60, this);
+	boolean blnHoldingPiece = false;
+	ConnectPiece newgamepiece = new ConnectPiece();
 	
 	JTextArea chatarea;
 	JScrollPane chatscroll;
 	JTextField typechat = new JTextField ("Type in chat...");
 	
 	//methods
+	public void actionPerformed(ActionEvent evt){
+		if(evt.getSource() == thetimer){
+			this.repaint();
+		}
+	}
+		
 	public void paintComponent(Graphics g){
 		
 		g.drawImage(thebackground, 0, 0, null);
 		g.drawImage(theboard, 50,50, null);
 		g.drawImage(player1piece, 920,480, null);
 		g.drawImage(player2piece, 1050,480, null);
+		System.out.println(blnHoldingPiece);
+		
+		if(blnHoldingPiece == true){
+			newgamepiece.drawIt(g);
+		}
 	}
 	
 	public String LoadTheme(){
@@ -72,11 +88,46 @@ public class C4GameplayScreen extends JPanel{
 		}
 		return strThemeImages;
 	}
+	
+	public void mouseMoved(MouseEvent evt){
+	}
+	public void mouseDragged(MouseEvent evt){
+		int intMouseX = evt.getX();
+		int intMouseY = evt.getY();
+		newgamepiece.intX = intMouseX;
+		newgamepiece.intY = intMouseY;
+		
+	}
+	public void mouseExited(MouseEvent evt){
+	}
+	public void mouseEntered(MouseEvent evt){
+	}
+	public void mouseReleased(MouseEvent evt){
+		blnHoldingPiece = false;
+	}
+	public void mousePressed(MouseEvent evt){
+		int intMouseX = evt.getX();
+		int intMouseY = evt.getY();
+		System.out.println(intMouseX + " , " + intMouseY);
+		if(SwingUtilities.isLeftMouseButton(evt)&& intMouseX>=920 && intMouseX<=1150 && intMouseY >= 480 && intMouseY <= 580){
+			newgamepiece.intX = intMouseX;
+			newgamepiece.intY = intMouseY;
+			ConnectPiece newgamepiece = new ConnectPiece();
+			this.blnHoldingPiece = true;
+			System.out.println("pressed within range of pieces");
+		}
+			
+	}
+	public void mouseClicked(MouseEvent evt){
+	}
 
 	//constructor
 	public C4GameplayScreen(){
 		super();
-
+		thetimer.start();
+		this.addMouseListener(this);
+		this.addMouseMotionListener(this);
+				
 		try{
 			strTheme = this.LoadTheme();
 			strThemeElements = this.LoadBG();
@@ -84,6 +135,8 @@ public class C4GameplayScreen extends JPanel{
 			strBoardFile = strThemeElements[2];
 			strP1File = strThemeElements[3];
 			strP2File = strThemeElements[4];
+			newgamepiece.strPlayer1File = strP1File;
+			newgamepiece.strPlayer2File = strP2File;
 			
 			thebackground = ImageIO.read(new File(System.getProperty("user.dir") + "\\Pictures\\" + strBackgroundFile));
 			theboard = ImageIO.read(new File(System.getProperty("user.dir") + "\\Pictures\\" + strBoardFile));
