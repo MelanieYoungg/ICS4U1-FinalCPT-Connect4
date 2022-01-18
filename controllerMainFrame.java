@@ -7,7 +7,7 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 	//using this to swap out panels so we can see how they look, can be used later for the main/controller 
 	//properties
 	public JFrame theframe;
-	C4GameplayScreen gameplaypanel = new C4GameplayScreen();
+	C4WinnerLoserScreen gameplaypanel = new C4WinnerLoserScreen();
 	C4HelpScreen helppanel = new C4HelpScreen();
 	String strCurrentScreen = "gameplay";
 	
