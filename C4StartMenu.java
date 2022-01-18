@@ -9,9 +9,9 @@ import javax.imageio.*;
 import javax.swing.*;
 
 
-public class C4StartMenu implements KeyListener, ActionListener{
+public class C4StartMenu extends JPanel {//implements KeyListener, ActionListener{
 	//variables
-		JFrame theFrame;
+		//JFrame theFrame;
 		JPanel thePanel;
 		SuperSocketMaster ssm;
 		JLabel welcomeLabel;
@@ -31,6 +31,12 @@ public class C4StartMenu implements KeyListener, ActionListener{
 		int intnextpos1 = 0;
 		int intnextpos2 = 0;
 		Random random = new Random();
+		
+		public void paintComponent(Graphics g){
+			
+			g.drawImage(theBackGroundImg, 0, 0, null);
+			
+		}
 		
 		public void actionPerformed(ActionEvent evt){
 			/*if(evt.getSource() == Username){
@@ -101,15 +107,14 @@ public class C4StartMenu implements KeyListener, ActionListener{
 		}
 	//Constructor
 		public C4StartMenu (){
-			ssm = new SuperSocketMaster(6112, this);
-			ssm.connect();
-			theFrame = new JFrame("Connect 4");
-			theFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			thePanel.setLayout(null);
-			//thePanel.setPreferredSize(new Dimension(1280, 750));
-			theFrame.setContentPane(thePanel);
-			theFrame.setResizable(false);
-			theFrame.pack();
+			super();
+			try{
+				theBackGroundImg = ImageIO.read(new File(System.getProperty("user.dir") + "\\Pictures\\Connect4BG.jpg"));
+			}catch(IOException e){
+				System.out.println("Error loading image");
+			}
+			this.setPreferredSize(new Dimension(1280,720));
+			this.setLayout(null);
 			
 			
 			welcomeLabel = new JLabel("Welcome to Connect 4!");
@@ -118,71 +123,71 @@ public class C4StartMenu implements KeyListener, ActionListener{
 			welcomeLabel.setSize(680, 70);
 			welcomeLabel.setLocation(300, 50);
 			welcomeLabel.setBackground(Color.WHITE);
-			thePanel.add(welcomeLabel);
+			this.add(welcomeLabel);
 			userNameLabel = new JLabel("Enter Your Username:");
 			userNameLabel.setHorizontalAlignment(SwingConstants.CENTER);
 			userNameLabel.setSize(680, 35);
 			userNameLabel.setLocation(300, 150);
 			userNameLabel.setFont(new Font("Serif", Font.PLAIN, 20));
-			thePanel.add(userNameLabel);
+			this.add(userNameLabel);
 			userName = new JTextField();
 			userName.setSize(680,35);
 			userName.setLocation(300, 190);
-			userName.addActionListener(this);
-			thePanel.add(userName);
+			//userName.addActionListener(this);
+			this.add(userName);
 			serverButton = new JButton("Server");
 			serverButton.setFont(new Font("Serif", Font.PLAIN, 20));
 			serverButton.setHorizontalAlignment(SwingConstants.CENTER);
 			serverButton.setSize(300, 40);
 			serverButton.setLocation(300, 240);
-			thePanel.add(serverButton);
+			this.add(serverButton);
 			clientButton = new JButton("Client");
 			clientButton.setFont(new Font("Serif", Font.PLAIN, 20));
 			clientButton.setHorizontalAlignment(SwingConstants.CENTER);
 			clientButton.setSize(300, 40);
 			clientButton.setLocation(680, 240);
-			thePanel.add(clientButton);
+			this.add(clientButton);
 			ipAddressLabel = new JLabel("Enter IP Address to Play:");
 			ipAddressLabel.setHorizontalAlignment(SwingConstants.CENTER);
 			ipAddressLabel.setSize(680, 35);
 			ipAddressLabel.setLocation(300, 300);
 			ipAddressLabel.setFont(new Font("Serif", Font.PLAIN, 20));
-			thePanel.add(ipAddressLabel);
+			this.add(ipAddressLabel);
 			ipAddress = new JTextField("localhost");
 			ipAddress = new JTextField("localhost");
 			ipAddress.setSize(680,35);
 			ipAddress.setLocation(300, 350);
-			thePanel.add(ipAddress);
+			this.add(ipAddress);
 			statusLabel = new JLabel();
 			statusLabel.setHorizontalAlignment(SwingConstants.CENTER);
 			statusLabel.setSize(680, 35);
 			statusLabel.setLocation(300,385);
-			ipAddressLabel.setFont(new Font("Serif", Font.PLAIN, 20));
-			thePanel.add(statusLabel);
+			statusLabel.setFont(new Font("Serif", Font.PLAIN, 20));
+			this.add(statusLabel);
 			playButton = new JButton("Play");
 			playButton.setFont(new Font("Serif", Font.PLAIN, 20));
 			playButton.setHorizontalAlignment(SwingConstants.CENTER);
 			playButton.setSize(300, 40);
 			playButton.setLocation(300, 430);
-			thePanel.add(playButton);
+			this.add(playButton);
 			helpButton = new JButton("Help");
 			helpButton.setFont(new Font("Serif", Font.PLAIN, 20));
 			helpButton.setHorizontalAlignment(SwingConstants.CENTER);
 			helpButton.setSize(300, 40);
 			helpButton.setLocation(680, 430);
-			thePanel.add(helpButton);
+			this.add(helpButton);
 			themeButton = new JButton("Themes Menu");
 			themeButton.setHorizontalAlignment(SwingConstants.CENTER);
 			themeButton.setSize(1280, 40);
 			themeButton.setLocation(0, 680);
 			themeButton.setFont(new Font("Serif", Font.PLAIN, 20));
-			thePanel.add(themeButton);
+			this.add(themeButton);
 			/*textrecieved = new JTextArea();
 			theScroll = new JScrollPane(textrecieved);
 			theScroll.setSize(300,325);
 			theScroll.setLocation(0, 125);
 			textrecieved.setEnabled(false);
 			thePanel.add(theScroll);  */
-			theFrame.setVisible(true);
+			//theFrame.setVisible(true);
 		}
 }
