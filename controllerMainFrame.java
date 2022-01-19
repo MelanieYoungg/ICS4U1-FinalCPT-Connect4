@@ -16,7 +16,7 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 	C4StartMenu startMenu = new C4StartMenu();
 	C4WinnerLoserScreen winnerLoserScreen = new C4WinnerLoserScreen();
 	C4ThemeSelectionScreen themeSelectionScreen = new C4ThemeSelectionScreen();
-	String strCurrentScreen = "";
+	
 	
 	//Networking Properties
 	boolean isServer;
@@ -59,6 +59,13 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 		 }else if(evt.getSource() == startMenu.helpButton) {
 			helppanel.setPreferredSize(new Dimension(1280, 720));
 			theframe.setContentPane(helppanel);
+			theframe.pack();
+		 }
+		 //C4HelpScreen.java	
+		 if(evt.getSource() == helppanel.backbutton) {
+			System.out.println("go back");
+			startMenu.setPreferredSize(new Dimension(1280, 720));
+			theframe.setContentPane(startMenu);
 			theframe.pack();
 		 }
 		 
