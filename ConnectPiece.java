@@ -21,6 +21,7 @@ public class ConnectPiece{
 	
 	public void drawIt(Graphics g){
 		/*/if(strTurn.equalsIgnoreCase("player1")){
+			System.out.println("File: " + strPlayer1File);
 			g.drawImage(player1piece, intX-50, intY-50, null);
 		}else if (strTurn.equalsIgnoreCase("player2")){
 			g.drawImage(player2piece, intX-50, intY-50, null);
@@ -34,6 +35,8 @@ public class ConnectPiece{
 	public ConnectPiece(){
 		intXpos = intX;
 		intYpos = intY;
+		strPlayer1File = strPlayer1File;
+		strPlayer2File = strPlayer2File;
 		try{
 			player1piece = ImageIO.read(new File(System.getProperty("user.dir") + "\\Pictures\\" + strPlayer1File));
 			System.out.println(strPlayer1File);
