@@ -24,6 +24,9 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 	Timer thetimer = new Timer(1000/60, this);
 	boolean blnHoldingPiece = false;
 	ConnectPiece newgamepiece = new ConnectPiece();
+	int intColumnDropped;
+	int intMouseX;
+	int intMouseY;
 	
 	JTextArea chatarea;
 	JScrollPane chatscroll;
@@ -42,13 +45,13 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 		g.drawImage(theboard, 50,50, null);
 		g.drawImage(player1piece, 920,480, null);
 		g.drawImage(player2piece, 1050,480, null);
-		System.out.println(blnHoldingPiece);
 		
+		//drawing the game piece when grabbed
 		if(blnHoldingPiece == true){
 			newgamepiece.drawIt(g);
 		}
 	}
-	
+	//loading theme
 	public String LoadTheme(){
 		strLine = "";
 		try{
@@ -68,7 +71,7 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 		}
 		return strTheme;
 	}
-	
+	//loading files into array based on theme
 	public String[] LoadBG(){
 		strLine = "";
 		try{
@@ -92,8 +95,8 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 	public void mouseMoved(MouseEvent evt){
 	}
 	public void mouseDragged(MouseEvent evt){
-		int intMouseX = evt.getX();
-		int intMouseY = evt.getY();
+		intMouseX = evt.getX();
+		intMouseY = evt.getY();
 		newgamepiece.intX = intMouseX;
 		newgamepiece.intY = intMouseY;
 		
@@ -104,14 +107,21 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 	}
 	public void mouseReleased(MouseEvent evt){
 		blnHoldingPiece = false;
+		if(intMouseX >= 50 && intMouseX <= 150){
+			intColumnDropped = 0;
+			System.out.println("Column dropped: "+intColumnDropped);
+		}
 	}
 	public void mousePressed(MouseEvent evt){
+		//getting mouse position
 		int intMouseX = evt.getX();
 		int intMouseY = evt.getY();
-		System.out.println(intMouseX + " , " + intMouseY);
+		//checking if player grabs the pieces
 		if(SwingUtilities.isLeftMouseButton(evt)&& intMouseX>=920 && intMouseX<=1150 && intMouseY >= 480 && intMouseY <= 580){
+			//gamepiece will follow the mouse
 			newgamepiece.intX = intMouseX;
 			newgamepiece.intY = intMouseY;
+			//generate new game piece to put down
 			ConnectPiece newgamepiece = new ConnectPiece();
 			this.blnHoldingPiece = true;
 			System.out.println("pressed within range of pieces");
@@ -127,7 +137,8 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 		thetimer.start();
 		this.addMouseListener(this);
 		this.addMouseMotionListener(this);
-				
+		
+		//loading pictures	
 		try{
 			strTheme = this.LoadTheme();
 			strThemeElements = this.LoadBG();
