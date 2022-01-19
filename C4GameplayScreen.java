@@ -55,6 +55,7 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 		}
 		//drawing the animation
 		if(blnDroppedPiece == true){
+			newgamepiece.intColumn = intColumnDropped;
 			if(newgamepiece.intY < newgamepiece.intRowCoords){
 				newgamepiece.dropAnimation(g);
 			}else{
@@ -65,7 +66,14 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 		
 		//drawing the game piece in the board
 		if(blnPlayedPiece == true){
-			newgamepiece.drawOnBoard(g);
+			int intPlayedColumnCoords = intColumnDropped*100+50;
+			if(strTurn.equalsIgnoreCase("player1")){
+				g.drawImage(player1piece, intPlayedColumnCoords,newgamepiece.intRowCoords, null);
+			}else if (strTurn.equalsIgnoreCase("player2")){
+				g.drawImage(player2piece, intPlayedColumnCoords,newgamepiece.intRowCoords, null);
+			}
+			//need to get the drawn piece to stay in the right spot. As of right now the previous game pieces also move to the current column drop.
+			
 		}
 	}
 	//loading theme
@@ -134,7 +142,6 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 			System.out.println("Column dropped: "+intColumnDropped);
 			
 		}else if(intMouseX >= 150 && intMouseX <= 250){
-			//notes for tomorrow me: figure out why the piece always falls to the first column regardless of where its dropped. Has something to do with transfering the info from one the class to object
 			intColumnDropped = 1;
 			ConnectPiece newgamepiece = new ConnectPiece();
 			newgamepiece.intColumn = intColumnDropped;
@@ -143,27 +150,37 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 			
 		}else if(intMouseX >= 250 && intMouseX <= 350){
 			intColumnDropped = 2;
-			
+			ConnectPiece newgamepiece = new ConnectPiece();
+			newgamepiece.intColumn = intColumnDropped;
+			blnDroppedPiece = true;
 			System.out.println("Column dropped: "+intColumnDropped);
 			
 		}else if(intMouseX >= 350 && intMouseX <= 450){
 			intColumnDropped = 3;
-			
+			ConnectPiece newgamepiece = new ConnectPiece();
+			newgamepiece.intColumn = intColumnDropped;
+			blnDroppedPiece = true;
 			System.out.println("Column dropped: "+intColumnDropped);
 			
 		}else if(intMouseX >= 450 && intMouseX <= 550){
 			intColumnDropped = 4;
-			
+			ConnectPiece newgamepiece = new ConnectPiece();
+			newgamepiece.intColumn = intColumnDropped;
+			blnDroppedPiece = true;
 			System.out.println("Column dropped: "+intColumnDropped);
 			
 		}else if(intMouseX >= 550 && intMouseX <= 650){
 			intColumnDropped = 5;
-			
+			ConnectPiece newgamepiece = new ConnectPiece();
+			newgamepiece.intColumn = intColumnDropped;
+			blnDroppedPiece = true;
 			System.out.println("Column dropped: "+intColumnDropped);
 			
 		}else if(intMouseX >= 650 && intMouseX <= 750){
 			intColumnDropped = 6;
-			
+			ConnectPiece newgamepiece = new ConnectPiece();
+			newgamepiece.intColumn = intColumnDropped;
+			blnDroppedPiece = true;
 			System.out.println("Column dropped: "+intColumnDropped);
 		}
 	}

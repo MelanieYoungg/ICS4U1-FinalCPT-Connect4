@@ -13,15 +13,15 @@ public class ConnectPiece{
 	String strTurn = "player1";
 	int intColumn;
 	int intRow = 3; //hardcoded row for now, need a method in Model to determine open spots
-	int intColumnCoords;
-	int intRowCoords;
+	int intColumnCoords = (intColumn*100)+50;
+	int intRowCoords = (intRow*100)+50;
 
-	
 	BufferedImage player1piece = null;
 	BufferedImage player2piece = null;
 	
 	//method
 	public void nextLoc(){
+		intRowCoords = (intRow*100)+50;
 		if(intRowCoords >= intY){
 			intY = intY+intDefY;
 		}else{
@@ -35,6 +35,9 @@ public class ConnectPiece{
 		}else if (strTurn.equalsIgnoreCase("player2")){
 			g.drawImage(player2piece, intX-50, intY-50, null);
 		}/*/
+		System.out.println(intColumn);
+		intColumnCoords = (intColumn*100)+50;
+		intRowCoords = (intRow*100)+50;
 		g.setColor(Color.BLACK);
 		g.fillOval(intColumnCoords, intRowCoords, 100,100);
 		
@@ -58,6 +61,7 @@ public class ConnectPiece{
 			g.drawImage(player2piece, intX-50, intY-50, null);
 		}/*/
 		System.out.println(intColumn);
+		intColumnCoords = (intColumn*100)+50;
 		g.setColor(Color.BLACK);
 		g.fillOval(intColumnCoords, intY, 100,100);
 		this.nextLoc();
@@ -73,8 +77,6 @@ public class ConnectPiece{
 	
 	//constructor
 	public ConnectPiece(){
-		intColumnCoords = (intColumn*100)+50;
-		intRowCoords = (intRow*100)+50;
 		try{
 			player1piece = ImageIO.read(new File(System.getProperty("user.dir") + "\\Pictures\\" + strPlayer1File));
 			System.out.println(strPlayer1File);
