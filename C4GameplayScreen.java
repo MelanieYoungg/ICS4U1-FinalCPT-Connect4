@@ -23,10 +23,13 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 	BufferedImage player2piece = null;
 	Timer thetimer = new Timer(1000/60, this);
 	boolean blnHoldingPiece = false;
+	boolean blnDroppedPiece = false;
+	boolean blnPlayedPiece = false;
 	ConnectPiece newgamepiece = new ConnectPiece();
 	int intColumnDropped;
 	int intMouseX;
 	int intMouseY;
+	String strTurn = "player1";
 	
 	JTextArea chatarea;
 	JScrollPane chatscroll;
@@ -49,6 +52,20 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 		//drawing the game piece when grabbed
 		if(blnHoldingPiece == true){
 			newgamepiece.drawIt(g);
+		}
+		//drawing the animation
+		if(blnDroppedPiece == true){
+			if(newgamepiece.intY < newgamepiece.intRowCoords){
+				newgamepiece.dropAnimation(g);
+			}else{
+				blnDroppedPiece = false;
+				blnPlayedPiece = true;
+			}
+		}
+		
+		//drawing the game piece in the board
+		if(blnPlayedPiece == true){
+			newgamepiece.drawOnBoard(g);
 		}
 	}
 	//loading theme
@@ -95,6 +112,7 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 	public void mouseMoved(MouseEvent evt){
 	}
 	public void mouseDragged(MouseEvent evt){
+		//dragging the gamepiece to the board
 		intMouseX = evt.getX();
 		intMouseY = evt.getY();
 		newgamepiece.intX = intMouseX;
@@ -107,8 +125,45 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 	}
 	public void mouseReleased(MouseEvent evt){
 		blnHoldingPiece = false;
+		//checking which column the piece is dropped in
 		if(intMouseX >= 50 && intMouseX <= 150){
 			intColumnDropped = 0;
+			ConnectPiece newgamepiece = new ConnectPiece();
+			newgamepiece.intColumn = intColumnDropped;
+			blnDroppedPiece = true;
+			System.out.println("Column dropped: "+intColumnDropped);
+			
+		}else if(intMouseX >= 150 && intMouseX <= 250){
+			//notes for tomorrow me: figure out why the piece always falls to the first column regardless of where its dropped. Has something to do with transfering the info from one the class to object
+			intColumnDropped = 1;
+			ConnectPiece newgamepiece = new ConnectPiece();
+			newgamepiece.intColumn = intColumnDropped;
+			blnDroppedPiece = true;
+			System.out.println("Column dropped: "+intColumnDropped);
+			
+		}else if(intMouseX >= 250 && intMouseX <= 350){
+			intColumnDropped = 2;
+			
+			System.out.println("Column dropped: "+intColumnDropped);
+			
+		}else if(intMouseX >= 350 && intMouseX <= 450){
+			intColumnDropped = 3;
+			
+			System.out.println("Column dropped: "+intColumnDropped);
+			
+		}else if(intMouseX >= 450 && intMouseX <= 550){
+			intColumnDropped = 4;
+			
+			System.out.println("Column dropped: "+intColumnDropped);
+			
+		}else if(intMouseX >= 550 && intMouseX <= 650){
+			intColumnDropped = 5;
+			
+			System.out.println("Column dropped: "+intColumnDropped);
+			
+		}else if(intMouseX >= 650 && intMouseX <= 750){
+			intColumnDropped = 6;
+			
 			System.out.println("Column dropped: "+intColumnDropped);
 		}
 	}
