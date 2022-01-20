@@ -12,11 +12,9 @@ public class ConnectPiece{
 	String strPlayer2File;
 	String strTurn = "player1";
 	int intColumn;
-	int intRow = 5; //hardcoded row for now, need a method in Model to determine open spots
+	int intRow = 3; //hardcoded row for now, need a method in Model to determine open spots
 	int intColumnCoords = (intColumn*100)+50;
 	int intRowCoords = (intRow*100)+50;
-	int intB;
-	boolean blnStay = false;
 
 	BufferedImage player1piece = null;
 	BufferedImage player2piece = null;
@@ -38,9 +36,10 @@ public class ConnectPiece{
 			g.drawImage(player2piece, intX-50, intY-50, null);
 		}/*/
 		System.out.println(intColumn);
-		blnStay = true;
-		g.setColor((new Color(40, 70, intB)));
-		g.fillOval(intX, intY, 100,100);
+		intColumnCoords = (intColumn*100)+50;
+		intRowCoords = (intRow*100)+50;
+		g.setColor(Color.BLACK);
+		g.fillOval(intColumnCoords, intRowCoords, 100,100);
 		
 	}
 	public void drawIt(Graphics g){
@@ -63,7 +62,7 @@ public class ConnectPiece{
 		}/*/
 		System.out.println(intColumn);
 		intColumnCoords = (intColumn*100)+50;
-		g.setColor((new Color(40, 70, intB)));
+		g.setColor(Color.BLACK);
 		g.fillOval(intColumnCoords, intY, 100,100);
 		this.nextLoc();
 	}
