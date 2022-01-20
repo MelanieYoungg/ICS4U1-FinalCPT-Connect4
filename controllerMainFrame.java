@@ -150,7 +150,7 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 		theframe.setResizable(false);
 		
 		//Used for Swapping Panels
-		theframe.setContentPane(themeSelectionScreen);
+		theframe.setContentPane(startMenu);
 		theframe.pack();
 	}
 	

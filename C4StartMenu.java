@@ -136,6 +136,9 @@ public class C4StartMenu extends JPanel {//implements KeyListener, ActionListene
 		themeMenu.add(menuItemEaster);
 		themeMenu.add(menuItemTheme);
 		menuBar.add(themeMenu);
+		menuBar.setLocation(0,670);
+		menuBar.setSize(1280, 50);
+		themeMenu.setSize(1280, 50);
 		this.add(menuBar);
 
 		/*textrecieved = new JTextArea();
