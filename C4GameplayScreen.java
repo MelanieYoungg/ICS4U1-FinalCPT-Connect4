@@ -27,6 +27,9 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 	boolean blnPlayedPiece = false;
 	ConnectPiece newgamepiece = new ConnectPiece();
 	int intColumnDropped;
+	int intRowDropped = 5;
+	int intPlayedColumnCoords;
+	int intPlayedRowCoords;
 	int intMouseX;
 	int intMouseY;
 	String strTurn = "player1";
@@ -43,7 +46,7 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 	}
 		
 	public void paintComponent(Graphics g){
-		
+		//drawing themed images
 		g.drawImage(thebackground, 0, 0, null);
 		g.drawImage(theboard, 50,50, null);
 		g.drawImage(player1piece, 920,480, null);
@@ -60,21 +63,36 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 				newgamepiece.dropAnimation(g);
 			}else{
 				blnDroppedPiece = false;
-				blnPlayedPiece = true;
+				newgamepiece.blnStay = true;
 			}
 		}
 		
 		//drawing the game piece in the board
-		if(blnPlayedPiece == true){
-			int intPlayedColumnCoords = intColumnDropped*100+50;
+		if(newgamepiece.blnStay == true){
 			if(strTurn.equalsIgnoreCase("player1")){
-				g.drawImage(player1piece, intPlayedColumnCoords,newgamepiece.intRowCoords, null);
+				ConnectPiece playedpiece = new ConnectPiece();
+				playedpiece.intB = 60;
+				playedpiece.intX = intColumnDropped*100+50;
+				playedpiece.intY = intRowDropped*100+50;
+				playedpiece.drawOnBoard(g);
+				//strTurn = "player2";
+				//System.out.println(strTurn);
+				blnPlayedPiece = false;
 			}else if (strTurn.equalsIgnoreCase("player2")){
-				g.drawImage(player2piece, intPlayedColumnCoords,newgamepiece.intRowCoords, null);
+				ConnectPiece playedpiece = new ConnectPiece();
+				playedpiece.intB = 20;
+				playedpiece.intX = intColumnDropped*100+50;
+				playedpiece.intY = intRowDropped*100+50;
+				playedpiece.drawOnBoard(g);
+				//strTurn = "player1";
+				//System.out.println(strTurn);
+				blnPlayedPiece = false;
 			}
 			//need to get the drawn piece to stay in the right spot. As of right now the previous game pieces also move to the current column drop.
-			
+			//it cant be in an IF STATEMENT because it will just get overridden
 		}
+		//g.drawImage(player1piece, intPlayedColumnCoords,intPlayedRowCoords, null);
+		
 	}
 	//loading theme
 	public String LoadTheme(){
@@ -121,10 +139,12 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 	}
 	public void mouseDragged(MouseEvent evt){
 		//dragging the gamepiece to the board
-		intMouseX = evt.getX();
-		intMouseY = evt.getY();
-		newgamepiece.intX = intMouseX;
-		newgamepiece.intY = intMouseY;
+		if(blnHoldingPiece == true && blnDroppedPiece == false){
+			intMouseX = evt.getX();
+			intMouseY = evt.getY();
+			newgamepiece.intX = intMouseX;
+			newgamepiece.intY = intMouseY;
+		}
 		
 	}
 	public void mouseExited(MouseEvent evt){
