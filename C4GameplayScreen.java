@@ -26,13 +26,14 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 	boolean blnDroppedPiece = false;
 	boolean blnPlayedPiece = false;
 	ConnectPiece newgamepiece = new ConnectPiece();
+	moduleBackendBoard arrayboard = new moduleBackendBoard();
 	int intColumnDropped;
 	int intRowDropped = 5;
 	int intPlayedColumnCoords;
 	int intPlayedRowCoords;
 	int intMouseX;
 	int intMouseY;
-	String strTurn = "player1";
+	int intTurn = 1;
 	
 	JTextArea chatarea;
 	JScrollPane chatscroll;
@@ -64,34 +65,58 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 			}else{
 				blnDroppedPiece = false;
 				newgamepiece.blnStay = true;
+				blnPlayedPiece = true;
+			}
+		}
+		//drawing the game piece in the board
+		for(int intRow = 0; intRow < 6; intRow++){
+			for(int intCol = 0; intCol < 7; intCol++){
+				if(arrayboard.intBoard[intRow][intCol] == 1){
+					g.drawImage(player1piece, intCol*100+50,intRow*100+50, null);
+				}else if(arrayboard.intBoard[intRow][intCol] == 2){
+					g.drawImage(player2piece, intCol*100+50,intRow*100+50, null);
+				}
 			}
 		}
 		
-		//drawing the game piece in the board
-		if(newgamepiece.blnStay == true){
+		/*/drawing the game piece in the board
+		if(newgamepiece.blnStay == true && blnDroppedPiece == false && blnHoldingPiece == false){
 			if(strTurn.equalsIgnoreCase("player1")){
-				ConnectPiece playedpiece = new ConnectPiece();
-				playedpiece.intB = 60;
-				playedpiece.intX = intColumnDropped*100+50;
-				playedpiece.intY = intRowDropped*100+50;
-				playedpiece.drawOnBoard(g);
+				//ConnectPiece playedpiece = new ConnectPiece();
+				//newgamepiece.intB = 100;
+				newgamepiece.intX = intColumnDropped*100+50;
+				newgamepiece.intY = intRowDropped*100+50;
+				newgamepiece.drawOnBoard(g);
 				//strTurn = "player2";
 				//System.out.println(strTurn);
-				blnPlayedPiece = false;
 			}else if (strTurn.equalsIgnoreCase("player2")){
-				ConnectPiece playedpiece = new ConnectPiece();
-				playedpiece.intB = 20;
-				playedpiece.intX = intColumnDropped*100+50;
-				playedpiece.intY = intRowDropped*100+50;
-				playedpiece.drawOnBoard(g);
+				//ConnectPiece playedpiece = new ConnectPiece();
+				//newgamepiece.intB = 20;
+				newgamepiece.intX = intColumnDropped*100+50;
+				newgamepiece.intY = intRowDropped*100+50;
+				newgamepiece.drawOnBoard(g);
 				//strTurn = "player1";
 				//System.out.println(strTurn);
-				blnPlayedPiece = false;
 			}
 			//need to get the drawn piece to stay in the right spot. As of right now the previous game pieces also move to the current column drop.
 			//it cant be in an IF STATEMENT because it will just get overridden
+			//do i need to make all of the bln variables declared in the Connect piece object? (except blnPlayedPiece bc that determines the turn system) 
+		}/*/
+		
+		//turn system
+		if (blnPlayedPiece == true){
+			if(intTurn == 1){
+				newgamepiece.intB = 100;
+				intTurn = 2;
+				System.out.println(intTurn);
+				blnPlayedPiece = false;
+			}else if (intTurn == 2){
+				newgamepiece.intB = 20;
+				intTurn = 1;
+				System.out.println(intTurn);
+				blnPlayedPiece = false;
+			}
 		}
-		//g.drawImage(player1piece, intPlayedColumnCoords,intPlayedRowCoords, null);
 		
 	}
 	//loading theme
@@ -203,6 +228,15 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 			blnDroppedPiece = true;
 			System.out.println("Column dropped: "+intColumnDropped);
 		}
+		//adding to the board array
+		arrayboard.addPosition(intColumnDropped);
+		for(int intRows = 6; intRows <= 6; intRows--){
+				if(arrayboard.intBoard[intColumnDropped][intRows] != 0){
+					newgamepiece.intRow = intRows;
+			}
+		}
+		
+		
 	}
 	public void mousePressed(MouseEvent evt){
 		//getting mouse position

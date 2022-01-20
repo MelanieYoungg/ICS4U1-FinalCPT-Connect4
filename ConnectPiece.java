@@ -7,12 +7,12 @@ public class ConnectPiece{
 	//properties
 	int intX;
 	int intY = 0;
-	int intDefY = 10;
+	int intDefY = 20;
 	String strPlayer1File;
 	String strPlayer2File;
 	String strTurn = "player1";
 	int intColumn;
-	int intRow = 5; //hardcoded row for now, need a method in Model to determine open spots
+	int intRow = 5; 
 	int intColumnCoords = (intColumn*100)+50;
 	int intRowCoords = (intRow*100)+50;
 	int intB;
@@ -62,6 +62,7 @@ public class ConnectPiece{
 			g.drawImage(player2piece, intX-50, intY-50, null);
 		}/*/
 		System.out.println(intColumn);
+		System.out.println("Row: " + intRow);
 		intColumnCoords = (intColumn*100)+50;
 		g.setColor((new Color(40, 70, intB)));
 		g.fillOval(intColumnCoords, intY, 100,100);
