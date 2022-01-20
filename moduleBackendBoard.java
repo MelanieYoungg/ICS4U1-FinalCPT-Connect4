@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class moduleBackendBoard{
 	//PROPERTIES
 	int intBoard[][] = new int[6][7];
@@ -5,17 +7,13 @@ public class moduleBackendBoard{
 		
 	//Add Player
 	public boolean addPosition(int intCol){
-		if(intBoard[0][intCol] != 0){
-			return false;
-		}
-			
-		for(int intRow = 0; intRow < 6; intRow++){
+		for(int intRow = 5; intRow >= 0; intRow--){
 			int intPiece = intBoard[intRow][intCol];
 			if(intPiece == 0){
 				if(intTurn % 2 == 0){
-					intBoard[intRow][intCol] = 0;
-				}else{
 					intBoard[intRow][intCol] = 1;
+				}else{
+					intBoard[intRow][intCol] = 2;
 				}
 				intTurn++;
 				return true;
@@ -102,6 +100,19 @@ public class moduleBackendBoard{
 				intBoard[intRow][intCol] = 0;
 			}
 		}
+	}
+
+	//MAIN METHOD
+	public static void main(String[] args) {
+		moduleBackendBoard board = new moduleBackendBoard();
+		while(!board.checkWinner(board.intTurn%2+1)){
+			System.out.println(board.checkWinner(board.intTurn%2+1));
+			board.printScreen();
+			Scanner scan = new Scanner(System.in);
+			int intCol = scan.nextInt();
+			board.addPosition(intCol);
+		}
+
 	}
 }
 

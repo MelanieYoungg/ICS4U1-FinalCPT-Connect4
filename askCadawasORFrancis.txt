@@ -1,0 +1,2 @@
+- Button switch over to different screens (back button)
+- Melanie's gameplay glitch thingy
