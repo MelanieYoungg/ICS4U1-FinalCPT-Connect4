@@ -28,7 +28,7 @@ public class C4StartMenu extends JPanel {//implements KeyListener, ActionListene
 
 	//Menu Selection
 	JMenuBar menuBar = new JMenuBar();
-	JMenu themeMenu = new JMenu();
+	JMenu themeMenu = new JMenu("----------------------------------------Theme Selection----------------------------------------");
 	JMenuItem menuItemChristmas = new JMenuItem("Select: Christmas Theme");
 	JMenuItem menuItemOriginal = new JMenuItem("Select: Original Theme");
 	JMenuItem menuItemEaster = new JMenuItem("Select: Easter Theme");
@@ -136,8 +136,9 @@ public class C4StartMenu extends JPanel {//implements KeyListener, ActionListene
 		themeMenu.add(menuItemEaster);
 		themeMenu.add(menuItemTheme);
 		menuBar.add(themeMenu);
-		menuBar.setLocation(0,670);
+		menuBar.setLocation(0,620);
 		menuBar.setSize(1280, 50);
+		themeMenu.setFont(new Font("Serif", Font.PLAIN, 40));
 		themeMenu.setSize(1280, 50);
 		this.add(menuBar);
 

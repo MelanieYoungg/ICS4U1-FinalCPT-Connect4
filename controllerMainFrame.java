@@ -10,7 +10,6 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 	JFrame theframe = new JFrame("Connect 4");
 	
 	//Screens
-	//using this to swap out panels so we can see how they look, can be used later for the main/controller 
 	C4GameplayScreen gameplaypanel = new C4GameplayScreen();
 	C4HelpScreen helppanel = new C4HelpScreen();
 	C4StartMenu startMenu = new C4StartMenu();
@@ -24,7 +23,7 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 	//METHODS
 	public void changeTheme(String strTheme){
 		try{
-			PrintWriter txtTheme = new PrintWriter(new FileWriter("theme.txt", true));
+			PrintWriter txtTheme = new PrintWriter(new FileWriter("themes.txt", false));
 
 			String strFileData = "Original,OriginalBG.jpg,OriginalBoard.png,P1original.png,P2original.png\nChristmas,ChristmasBG.jpg,ChristmasBoard.png,P1christmas.png,P2christmas.png\nEaster,EasterBG.jpg,EasterBoard.png,P1easter.png,P2easter.png\n";
 			if(strTheme.equals("Christmas")){

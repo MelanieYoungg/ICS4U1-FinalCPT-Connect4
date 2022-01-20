@@ -17,6 +17,7 @@ public class moduleBackendBoard{
 				}else{
 					intBoard[intRow][intCol] = 1;
 				}
+				intTurn++;
 				return true;
 			}
 		}
@@ -51,7 +52,7 @@ public class moduleBackendBoard{
 			}
 		}
 		
-		//Diagnal L-R
+		//Diagonal L-R
 		for(int intRow = 3; intRow < 6; intRow++){
 			for(int intCol = 0; intCol < 7 - 3; intCol++){
 				for(int intAdder = 0; intAdder < 4; intAdder++){
@@ -64,7 +65,7 @@ public class moduleBackendBoard{
 			}
 		}
 		
-		//Diagnal R-L
+		//Diagonal R-L
 		for(int intRow = 0; intRow < 6 - 3; intRow++){
 			for(int intCol = 0; intCol < 7 - 3; intCol++){
 				for(int intAdder = 0; intAdder < 4; intAdder++){
@@ -101,11 +102,6 @@ public class moduleBackendBoard{
 				intBoard[intRow][intCol] = 0;
 			}
 		}
-	}
-		
-	//Main Method
-	public static void main(String[] args){
-		System.out.println("Hi:");
 	}
 }
 
