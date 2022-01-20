@@ -16,13 +16,29 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 	C4StartMenu startMenu = new C4StartMenu();
 	C4WinnerLoserScreen winnerLoserScreen = new C4WinnerLoserScreen();
 	C4ThemeSelectionScreen themeSelectionScreen = new C4ThemeSelectionScreen();
-	
-	
+
 	//Networking Properties
 	boolean isServer;
 	SuperSocketMaster ssm;
 	
 	//METHODS
+	public void changeTheme(String strTheme){
+		try{
+			PrintWriter txtTheme = new PrintWriter(new FileWriter("theme.txt", true));
+
+			String strFileData = "Original,OriginalBG.jpg,OriginalBoard.png,P1original.png,P2original.png\nChristmas,ChristmasBG.jpg,ChristmasBoard.png,P1christmas.png,P2christmas.png\nEaster,EasterBG.jpg,EasterBoard.png,P1easter.png,P2easter.png\n";
+			if(strTheme.equals("Christmas")){
+				txtTheme.println(strFileData + "Current,christmas");
+			}else if(strTheme.equals("Original")){
+				txtTheme.println(strFileData + "Current,original");
+			}else if(strTheme.equals("Easter")){
+				txtTheme.println(strFileData + "Current,easter");
+			}
+			txtTheme.close();
+		}catch(IOException e){
+			System.out.println("File not found");
+		}
+	}
 	public void actionPerformed(ActionEvent evt){
 		//C4StartMenu.java
 		if(evt.getSource() == startMenu.serverButton){
@@ -61,9 +77,21 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 			theframe.setContentPane(helppanel);
 			theframe.pack();
 		 }
-		 //C4HelpScreen.java	
-		 if(evt.getSource() == helppanel.backbutton) {
-			System.out.println("go back");
+
+		//Menu Items
+		else if(evt.getSource() == startMenu.menuItemChristmas){
+
+
+		}else if(evt.getSource() == startMenu.menuItemOriginal){
+
+		}else if(evt.getSource() == startMenu.menuItemEaster){
+
+		}else if(evt.getSource() == startMenu.menuItemTheme){
+
+		}
+
+		//C4HelpScreen.java
+		else if(evt.getSource() == helppanel.backbutton) {
 			startMenu.setPreferredSize(new Dimension(1280, 720));
 			theframe.setContentPane(startMenu);
 			theframe.pack();
@@ -80,24 +108,18 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 			theframe.setContentPane(startMenu);
 			theframe.pack();
 		}
-		
+
 		//C4ThemeSelectionScreen.java
-		else if(evt.getSource() == themeSelectionScreen.christmasButton || evt.getSource() == themeSelectionScreen.originalButton || evt.getSource() == themeSelectionScreen.easterButton){
-			try{
-				PrintWriter txtTheme = new PrintWriter(new FileWriter("theme.txt", true));
-				
-				String strFileData = "Original,OriginalBG.jpg,OriginalBoard.png,P1original.png,P2original.png\nChristmas,ChristmasBG.jpg,ChristmasBoard.png,P1christmas.png,P2christmas.png\nEaster,EasterBG.jpg,EasterBoard.png,P1easter.png,P2easter.png\n";
-				if(evt.getSource() == themeSelectionScreen.christmasButton){
-					txtTheme.println(strFileData + "Current,christmas");
-				}else if(evt.getSource() == themeSelectionScreen.originalButton){
-					txtTheme.println(strFileData + "Current,original");
-				}else if(evt.getSource() == themeSelectionScreen.easterButton){
-					txtTheme.println(strFileData + "Current,easter");
-				}
-				txtTheme.close();
-			}catch(IOException e){
-				System.out.println("File not found");
-			}
+		else if(evt.getSource() == themeSelectionScreen.christmasButton){
+			changeTheme("Christmas");
+		}else if(evt.getSource() == themeSelectionScreen.originalButton){
+			changeTheme("Original");
+		}else if(evt.getSource() == themeSelectionScreen.easterButton){
+			changeTheme("Easter");
+		}else if(evt.getSource() == themeSelectionScreen.backButton){
+			startMenu.setPreferredSize(new Dimension(1280, 720));
+			theframe.setContentPane(startMenu);
+			theframe.pack();
 		}
 	}
 	public void stateChanged(ChangeEvent evt){}
@@ -128,7 +150,7 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 		theframe.setResizable(false);
 		
 		//Used for Swapping Panels
-		theframe.setContentPane(startMenu);
+		theframe.setContentPane(themeSelectionScreen);
 		theframe.pack();
 	}
 	

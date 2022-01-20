@@ -25,6 +25,15 @@ public class C4StartMenu extends JPanel {//implements KeyListener, ActionListene
 	JButton themeButton;
 	JLabel textrecievedlabel;
 	BufferedImage theBackGroundImg;
+
+	//Menu Selection
+	JMenuBar menuBar = new JMenuBar();
+	JMenu themeMenu = new JMenu();
+	JMenuItem menuItemChristmas = new JMenuItem("Select: Christmas Theme");
+	JMenuItem menuItemOriginal = new JMenuItem("Select: Original Theme");
+	JMenuItem menuItemEaster = new JMenuItem("Select: Easter Theme");
+	JMenuItem menuItemTheme = new JMenuItem("See Theme Layouts");
+
 	//JFrame theframe1 = new JFrame("C4StartMenu ");
 	int intnextpos1 = 0;
 	int intnextpos2 = 0;
@@ -121,13 +130,14 @@ public class C4StartMenu extends JPanel {//implements KeyListener, ActionListene
 		helpButton.setSize(300, 40);
 		helpButton.setLocation(680, 430);
 		this.add(helpButton);
-		
-		themeButton = new JButton("Themes Menu");
-		themeButton.setHorizontalAlignment(SwingConstants.CENTER);
-		themeButton.setSize(1280, 40);
-		themeButton.setLocation(0, 680);
-		themeButton.setFont(new Font("Serif", Font.PLAIN, 20));
-		this.add(themeButton);
+
+		themeMenu.add(menuItemChristmas);
+		themeMenu.add(menuItemOriginal);
+		themeMenu.add(menuItemEaster);
+		themeMenu.add(menuItemTheme);
+		menuBar.add(themeMenu);
+		this.add(menuBar);
+
 		/*textrecieved = new JTextArea();
 		theScroll = new JScrollPane(textrecieved);
 		theScroll.setSize(300,325);
