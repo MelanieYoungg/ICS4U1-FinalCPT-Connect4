@@ -4,6 +4,7 @@ public class moduleBackendBoard{
 	//PROPERTIES
 	int intBoard[][] = new int[6][7];
 	int intTurn;
+	int intCurrentRow;
 		
 	//Add Player
 	public boolean addPosition(int intCol){
@@ -16,6 +17,7 @@ public class moduleBackendBoard{
 					intBoard[intRow][intCol] = 2;
 				}
 				intTurn++;
+				intCurrentRow = intRow;
 				return true;
 			}
 		}

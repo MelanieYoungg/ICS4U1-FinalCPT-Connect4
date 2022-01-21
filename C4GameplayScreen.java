@@ -25,6 +25,7 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 	boolean blnHoldingPiece = false;
 	boolean blnDroppedPiece = false;
 	boolean blnPlayedPiece = false;
+	boolean blnInRange = false;
 	ConnectPiece newgamepiece = new ConnectPiece();
 	moduleBackendBoard arrayboard = new moduleBackendBoard();
 	int intColumnDropped;
@@ -59,25 +60,32 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 		}
 		//drawing the animation
 		if(blnDroppedPiece == true){
+			System.out.println("!!!!!!!!!!!!! blnDroppedPiece is true");
 			newgamepiece.intColumn = intColumnDropped;
+			System.out.println("!!!!!!!!!!!!! intRowCoords is "+newgamepiece.intRowCoords);
+			System.out.println("!!!!!!!!!!!!! intY is "+newgamepiece.intY);
 			if(newgamepiece.intY < newgamepiece.intRowCoords){
 				newgamepiece.dropAnimation(g);
 			}else{
 				blnDroppedPiece = false;
 				newgamepiece.blnStay = true;
+				blnInRange = false;
 				blnPlayedPiece = true;
 			}
+			
 		}
 		//drawing the game piece in the board
 		for(int intRow = 0; intRow < 6; intRow++){
-			for(int intCol = 0; intCol < 7; intCol++){
-				if(arrayboard.intBoard[intRow][intCol] == 1){
-					g.drawImage(player1piece, intCol*100+50,intRow*100+50, null);
-				}else if(arrayboard.intBoard[intRow][intCol] == 2){
-					g.drawImage(player2piece, intCol*100+50,intRow*100+50, null);
+				for(int intCol = 0; intCol < 7; intCol++){
+					if(arrayboard.intBoard[intRow][intCol] == 1){
+						g.drawImage(player1piece, intCol*100+50,intRow*100+50, null);
+					}else if(arrayboard.intBoard[intRow][intCol] == 2){
+						g.drawImage(player2piece, intCol*100+50,intRow*100+50, null);
+					}
 				}
-			}
+			
 		}
+		
 		
 		/*/drawing the game piece in the board
 		if(newgamepiece.blnStay == true && blnDroppedPiece == false && blnHoldingPiece == false){
@@ -163,10 +171,12 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 	public void mouseMoved(MouseEvent evt){
 	}
 	public void mouseDragged(MouseEvent evt){
+		System.out.println("!!!! mouse dragged start");
 		//dragging the gamepiece to the board
 		if(blnHoldingPiece == true && blnDroppedPiece == false){
 			intMouseX = evt.getX();
 			intMouseY = evt.getY();
+			//gamepiece will follow the mouse
 			newgamepiece.intX = intMouseX;
 			newgamepiece.intY = intMouseY;
 		}
@@ -177,44 +187,49 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 	public void mouseEntered(MouseEvent evt){
 	}
 	public void mouseReleased(MouseEvent evt){
+		System.out.println("!!!!! mouse released");
+		if(blnHoldingPiece) {
 		blnHoldingPiece = false;
+		intMouseX = evt.getX();
+		intMouseY = evt.getY();
+		//if(blnInRange) {
 		//checking which column the piece is dropped in
-		if(intMouseX >= 50 && intMouseX <= 150){
+		if(intMouseX >= 50 && intMouseX < 150){
 			intColumnDropped = 0;
 			ConnectPiece newgamepiece = new ConnectPiece();
 			newgamepiece.intColumn = intColumnDropped;
 			blnDroppedPiece = true;
 			System.out.println("Column dropped: "+intColumnDropped);
 			
-		}else if(intMouseX >= 150 && intMouseX <= 250){
+		}else if(intMouseX >= 150 && intMouseX < 250){
 			intColumnDropped = 1;
 			ConnectPiece newgamepiece = new ConnectPiece();
 			newgamepiece.intColumn = intColumnDropped;
 			blnDroppedPiece = true;
 			System.out.println("Column dropped: "+intColumnDropped);
 			
-		}else if(intMouseX >= 250 && intMouseX <= 350){
+		}else if(intMouseX >= 250 && intMouseX < 350){
 			intColumnDropped = 2;
 			ConnectPiece newgamepiece = new ConnectPiece();
 			newgamepiece.intColumn = intColumnDropped;
 			blnDroppedPiece = true;
 			System.out.println("Column dropped: "+intColumnDropped);
 			
-		}else if(intMouseX >= 350 && intMouseX <= 450){
+		}else if(intMouseX >= 350 && intMouseX < 450){
 			intColumnDropped = 3;
 			ConnectPiece newgamepiece = new ConnectPiece();
 			newgamepiece.intColumn = intColumnDropped;
 			blnDroppedPiece = true;
 			System.out.println("Column dropped: "+intColumnDropped);
 			
-		}else if(intMouseX >= 450 && intMouseX <= 550){
+		}else if(intMouseX >= 450 && intMouseX < 550){
 			intColumnDropped = 4;
 			ConnectPiece newgamepiece = new ConnectPiece();
 			newgamepiece.intColumn = intColumnDropped;
 			blnDroppedPiece = true;
 			System.out.println("Column dropped: "+intColumnDropped);
 			
-		}else if(intMouseX >= 550 && intMouseX <= 650){
+		}else if(intMouseX >= 550 && intMouseX < 650){
 			intColumnDropped = 5;
 			ConnectPiece newgamepiece = new ConnectPiece();
 			newgamepiece.intColumn = intColumnDropped;
@@ -229,16 +244,21 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 			System.out.println("Column dropped: "+intColumnDropped);
 		}
 		//adding to the board array
-		arrayboard.addPosition(intColumnDropped);
-		for(int intRows = 6; intRows <= 6; intRows--){
-				if(arrayboard.intBoard[intColumnDropped][intRows] != 0){
-					newgamepiece.intRow = intRows;
+		if(blnDroppedPiece) {
+			arrayboard.addPosition(intColumnDropped);
+			newgamepiece.intRow = arrayboard.intCurrentRow;
+			for(int intRows = 6; intRows >= 0; intRows--){
+				System.out.println("!!!! intRows are "+intRows);
+					if(arrayboard.intBoard[intColumnDropped][intRows] != 0){
+						newgamepiece.intRow = intRows;
+				}
 			}
 		}
-		
-		
+		}
+		System.out.println("!!!! mouse released method end");
 	}
 	public void mousePressed(MouseEvent evt){
+		System.out.println("!!!! mouse pressed start");
 		//getting mouse position
 		int intMouseX = evt.getX();
 		int intMouseY = evt.getY();
@@ -252,7 +272,7 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 			this.blnHoldingPiece = true;
 			System.out.println("pressed within range of pieces");
 		}
-			
+		System.out.println("!!!! mouse pressed end");	
 	}
 	public void mouseClicked(MouseEvent evt){
 	}

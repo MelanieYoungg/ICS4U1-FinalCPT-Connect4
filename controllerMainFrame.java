@@ -39,7 +39,6 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 		}
 	}
 	public void actionPerformed(ActionEvent evt){
-		//C4StartMenu.java
 		if(evt.getSource() == startMenu.serverButton){
 			startMenu.serverButton.setEnabled(false); 
 			startMenu.clientButton.setVisible(false);
@@ -60,21 +59,28 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 		    }*/
 		      
 		 }else if(evt.getSource() == startMenu.clientButton) {
-			startMenu.clientButton.setEnabled(false); 
-			startMenu.serverButton.setVisible(false);
-			isServer = false;
-			startMenu.ipAddress.setEnabled(false);
-			startMenu.userName.setEnabled(false);
+			 startMenu.clientButton.setEnabled(false); 
+			 startMenu.serverButton.setVisible(false);
+			 isServer = false;
+			 startMenu.ipAddress.setEnabled(false);
+			 startMenu.userName.setEnabled(false);
 			    
 		 }else if(evt.getSource() == startMenu.playButton) {
-			gameplaypanel.setPreferredSize(new Dimension(1280, 720));
-			theframe.setContentPane(gameplaypanel);
-			theframe.pack();
+			 if(startMenu.ipAddress.getText() != null && startMenu.userName.getText() != null 
+					 && !startMenu.ipAddress.getText().isEmpty() && !startMenu.userName.getText().isEmpty() 
+					 && (!startMenu.serverButton.isVisible() || !startMenu.clientButton.isVisible())) {
+				 //ssm = new SuperSocketMaster(ipAddress.getText(), 1234, this);
+				 //boolean gotConnect = ssm.connect();
+				 gameplaypanel.setPreferredSize(new Dimension(1280, 720));
+				 theframe.setContentPane(gameplaypanel);
+				 theframe.pack();
+			 }
 			    
 		 }else if(evt.getSource() == startMenu.helpButton) {
-			helppanel.setPreferredSize(new Dimension(1280, 720));
-			theframe.setContentPane(helppanel);
-			theframe.pack();
+			 helppanel.setPreferredSize(new Dimension(1280, 720));
+			 theframe.setContentPane(helppanel);
+			 theframe.pack();
+			    
 		 }
 
 		//Menu Items
@@ -123,11 +129,10 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 	}
 	public void stateChanged(ChangeEvent evt){}
 	
-	//CONSTRUCTOR
+	//constructor
 	public controllerMainFrame(){
+		theframe = new JFrame("Connect 4");
 		startMenu.setPreferredSize(new Dimension(1280, 720));
-		
-		//Action Listener for Start Menu
 		startMenu.userName.addActionListener(this);
 		startMenu.serverButton.addActionListener(this);
 		startMenu.clientButton.addActionListener(this);
