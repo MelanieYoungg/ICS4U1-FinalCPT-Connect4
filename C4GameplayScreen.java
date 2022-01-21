@@ -86,31 +86,6 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 			
 		}
 		
-		
-		/*/drawing the game piece in the board
-		if(newgamepiece.blnStay == true && blnDroppedPiece == false && blnHoldingPiece == false){
-			if(strTurn.equalsIgnoreCase("player1")){
-				//ConnectPiece playedpiece = new ConnectPiece();
-				//newgamepiece.intB = 100;
-				newgamepiece.intX = intColumnDropped*100+50;
-				newgamepiece.intY = intRowDropped*100+50;
-				newgamepiece.drawOnBoard(g);
-				//strTurn = "player2";
-				//System.out.println(strTurn);
-			}else if (strTurn.equalsIgnoreCase("player2")){
-				//ConnectPiece playedpiece = new ConnectPiece();
-				//newgamepiece.intB = 20;
-				newgamepiece.intX = intColumnDropped*100+50;
-				newgamepiece.intY = intRowDropped*100+50;
-				newgamepiece.drawOnBoard(g);
-				//strTurn = "player1";
-				//System.out.println(strTurn);
-			}
-			//need to get the drawn piece to stay in the right spot. As of right now the previous game pieces also move to the current column drop.
-			//it cant be in an IF STATEMENT because it will just get overridden
-			//do i need to make all of the bln variables declared in the Connect piece object? (except blnPlayedPiece bc that determines the turn system) 
-		}/*/
-		
 		//turn system
 		if (blnPlayedPiece == true){
 			if(intTurn == 1){
@@ -189,71 +164,71 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 	public void mouseReleased(MouseEvent evt){
 		System.out.println("!!!!! mouse released");
 		if(blnHoldingPiece) {
-		blnHoldingPiece = false;
-		intMouseX = evt.getX();
-		intMouseY = evt.getY();
-		//if(blnInRange) {
-		//checking which column the piece is dropped in
-		if(intMouseX >= 50 && intMouseX < 150){
-			intColumnDropped = 0;
-			ConnectPiece newgamepiece = new ConnectPiece();
-			newgamepiece.intColumn = intColumnDropped;
-			blnDroppedPiece = true;
-			System.out.println("Column dropped: "+intColumnDropped);
-			
-		}else if(intMouseX >= 150 && intMouseX < 250){
-			intColumnDropped = 1;
-			ConnectPiece newgamepiece = new ConnectPiece();
-			newgamepiece.intColumn = intColumnDropped;
-			blnDroppedPiece = true;
-			System.out.println("Column dropped: "+intColumnDropped);
-			
-		}else if(intMouseX >= 250 && intMouseX < 350){
-			intColumnDropped = 2;
-			ConnectPiece newgamepiece = new ConnectPiece();
-			newgamepiece.intColumn = intColumnDropped;
-			blnDroppedPiece = true;
-			System.out.println("Column dropped: "+intColumnDropped);
-			
-		}else if(intMouseX >= 350 && intMouseX < 450){
-			intColumnDropped = 3;
-			ConnectPiece newgamepiece = new ConnectPiece();
-			newgamepiece.intColumn = intColumnDropped;
-			blnDroppedPiece = true;
-			System.out.println("Column dropped: "+intColumnDropped);
-			
-		}else if(intMouseX >= 450 && intMouseX < 550){
-			intColumnDropped = 4;
-			ConnectPiece newgamepiece = new ConnectPiece();
-			newgamepiece.intColumn = intColumnDropped;
-			blnDroppedPiece = true;
-			System.out.println("Column dropped: "+intColumnDropped);
-			
-		}else if(intMouseX >= 550 && intMouseX < 650){
-			intColumnDropped = 5;
-			ConnectPiece newgamepiece = new ConnectPiece();
-			newgamepiece.intColumn = intColumnDropped;
-			blnDroppedPiece = true;
-			System.out.println("Column dropped: "+intColumnDropped);
-			
-		}else if(intMouseX >= 650 && intMouseX <= 750){
-			intColumnDropped = 6;
-			ConnectPiece newgamepiece = new ConnectPiece();
-			newgamepiece.intColumn = intColumnDropped;
-			blnDroppedPiece = true;
-			System.out.println("Column dropped: "+intColumnDropped);
-		}
-		//adding to the board array
-		if(blnDroppedPiece) {
-			arrayboard.addPosition(intColumnDropped);
-			newgamepiece.intRow = arrayboard.intCurrentRow;
-			for(int intRows = 6; intRows >= 0; intRows--){
-				System.out.println("!!!! intRows are "+intRows);
+			blnHoldingPiece = false;
+			intMouseX = evt.getX();
+			intMouseY = evt.getY();
+			//if(blnInRange) {
+			//checking which column the piece is dropped in
+			if(intMouseX >= 50 && intMouseX < 150){
+				intColumnDropped = 0;
+				ConnectPiece newgamepiece = new ConnectPiece();
+				newgamepiece.intColumn = intColumnDropped;
+				blnDroppedPiece = true;
+				System.out.println("Column dropped: "+intColumnDropped);
+				
+			}else if(intMouseX >= 150 && intMouseX < 250){
+				intColumnDropped = 1;
+				ConnectPiece newgamepiece = new ConnectPiece();
+				newgamepiece.intColumn = intColumnDropped;
+				blnDroppedPiece = true;
+				System.out.println("Column dropped: "+intColumnDropped);
+				
+			}else if(intMouseX >= 250 && intMouseX < 350){
+				intColumnDropped = 2;
+				ConnectPiece newgamepiece = new ConnectPiece();
+				newgamepiece.intColumn = intColumnDropped;
+				blnDroppedPiece = true;
+				System.out.println("Column dropped: "+intColumnDropped);
+				
+			}else if(intMouseX >= 350 && intMouseX < 450){
+				intColumnDropped = 3;
+				ConnectPiece newgamepiece = new ConnectPiece();
+				newgamepiece.intColumn = intColumnDropped;
+				blnDroppedPiece = true;
+				System.out.println("Column dropped: "+intColumnDropped);
+				
+			}else if(intMouseX >= 450 && intMouseX < 550){
+				intColumnDropped = 4;
+				ConnectPiece newgamepiece = new ConnectPiece();
+				newgamepiece.intColumn = intColumnDropped;
+				blnDroppedPiece = true;
+				System.out.println("Column dropped: "+intColumnDropped);
+				
+			}else if(intMouseX >= 550 && intMouseX < 650){
+				intColumnDropped = 5;
+				ConnectPiece newgamepiece = new ConnectPiece();
+				newgamepiece.intColumn = intColumnDropped;
+				blnDroppedPiece = true;
+				System.out.println("Column dropped: "+intColumnDropped);
+				
+			}else if(intMouseX >= 650 && intMouseX <= 750){
+				intColumnDropped = 6;
+				ConnectPiece newgamepiece = new ConnectPiece();
+				newgamepiece.intColumn = intColumnDropped;
+				blnDroppedPiece = true;
+				System.out.println("Column dropped: "+intColumnDropped);
+			}
+			//adding to the board array
+			if(blnDroppedPiece) {
+				arrayboard.addPosition(intColumnDropped);
+				newgamepiece.intRow = arrayboard.intCurrentRow;
+				for(int intRows = 6; intRows >= 0; intRows--){
+					System.out.println("!!!! intRows are "+intRows);
 					if(arrayboard.intBoard[intColumnDropped][intRows] != 0){
 						newgamepiece.intRow = intRows;
+					}
 				}
 			}
-		}
 		}
 		System.out.println("!!!! mouse released method end");
 	}
