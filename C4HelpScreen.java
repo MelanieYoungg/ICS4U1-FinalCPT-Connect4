@@ -14,6 +14,13 @@ public class C4HelpScreen extends JPanel implements ActionListener, MouseListene
 	Timer thetimer = new Timer(1000/60, this);
 	boolean blnHoldingPiece = false;
 	ConnectPiece newgamepiece = new ConnectPiece();
+	moduleBackendBoard helpboardarray = new moduleBackendBoard();
+	int intMouseX;
+	int intMouseY;
+	int intColumnDropped;
+	boolean blnDroppedPiece;
+	boolean blnPlayedPiece;
+	boolean blnInRange;
 	
 	JTextArea helptextarea;
 	JButton backbutton;
@@ -35,6 +42,32 @@ public class C4HelpScreen extends JPanel implements ActionListener, MouseListene
 		if(blnHoldingPiece == true){
 			newgamepiece.drawIt(g);
 		}
+		if(blnDroppedPiece == true){
+			System.out.println("!!!!!!!!!!!!! blnDroppedPiece is true");
+			newgamepiece.intColumn = intColumnDropped;
+			System.out.println("!!!!!!!!!!!!! intRowCoords is "+newgamepiece.intRowCoords);
+			System.out.println("!!!!!!!!!!!!! intY is "+newgamepiece.intY);
+			if(newgamepiece.intY < newgamepiece.intRowCoords){
+				newgamepiece.dropAnimationHelp(g);
+			}else{
+				blnDroppedPiece = false;
+				newgamepiece.blnStay = true;
+				blnInRange = false;
+				blnPlayedPiece = true;
+			}
+			
+		}
+		//drawing the game piece in the board
+		for(int intRow = 0; intRow < 6; intRow++){
+				for(int intCol = 0; intCol < 2; intCol++){
+					if(helpboardarray.intBoard[intRow][intCol] == 1){
+						g.drawImage(helpgamepiece, intCol*100+800,intRow*100+50, null);
+					}else if(helpboardarray.intBoard[intRow][intCol] == 2){
+						g.drawImage(helpgamepiece, intCol*100+800,intRow*100+50, null);
+					}
+				}
+			
+		}
 	}
 	public void mouseMoved(MouseEvent evt){
 	}
@@ -50,11 +83,44 @@ public class C4HelpScreen extends JPanel implements ActionListener, MouseListene
 	public void mouseEntered(MouseEvent evt){
 	}
 	public void mouseReleased(MouseEvent evt){
-		blnHoldingPiece = false;
+		System.out.println("!!!!! mouse released");
+		if(blnHoldingPiece) {
+			blnHoldingPiece = false;
+			intMouseX = evt.getX();
+			intMouseY = evt.getY();
+			//if(blnInRange) {
+			//checking which column the piece is dropped in
+			if(intMouseX >= 800 && intMouseX < 900){
+				intColumnDropped = 0;
+				ConnectPiece newgamepiece = new ConnectPiece();
+				newgamepiece.intColumn = intColumnDropped;
+				blnDroppedPiece = true;
+				System.out.println("Column dropped: "+intColumnDropped);
+				
+			}else if(intMouseX >= 900 && intMouseX < 1000){
+				intColumnDropped = 1;
+				ConnectPiece newgamepiece = new ConnectPiece();
+				newgamepiece.intColumn = intColumnDropped;
+				blnDroppedPiece = true;
+				System.out.println("Column dropped: "+intColumnDropped);
+				
+			}
+			if(blnDroppedPiece) {
+				helpboardarray.addPosition(intColumnDropped);
+				newgamepiece.intRow = helpboardarray.intCurrentRow;
+				for(int intRows = 6; intRows >= 0; intRows--){
+					System.out.println("!!!! intRows are "+intRows);
+					if(helpboardarray.intBoard[intColumnDropped][intRows] != 0){
+						newgamepiece.intRow = intRows;
+					}
+				}
+			}
+		}
+		
 	}
 	public void mousePressed(MouseEvent evt){
-		int intMouseX = evt.getX();
-		int intMouseY = evt.getY();
+		intMouseX = evt.getX();
+		intMouseY = evt.getY();
 		System.out.println(intMouseX + " , " + intMouseY);
 		if(SwingUtilities.isLeftMouseButton(evt)&& intMouseX>=1060 && intMouseX<=1160 && intMouseY >= 300 && intMouseY <= 400){
 			newgamepiece.intX = intMouseX;

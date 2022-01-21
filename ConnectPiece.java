@@ -68,6 +68,20 @@ public class ConnectPiece{
 		g.fillOval(intColumnCoords, intY, 100,100);
 		this.nextLoc();
 	}
+	public void dropAnimationHelp(Graphics g){
+		/*/if(strTurn.equalsIgnoreCase("player1")){
+			System.out.println("File: " + strPlayer1File);
+			g.drawImage(player1piece, intX-50, intY-50, null);
+		}else if (strTurn.equalsIgnoreCase("player2")){
+			g.drawImage(player2piece, intX-50, intY-50, null);
+		}/*/
+		System.out.println(intColumn);
+		System.out.println("Row: " + intRow);
+		intColumnCoords = (intColumn*100)+800;
+		g.setColor((new Color(40, 70, intB)));
+		g.fillOval(intColumnCoords, intY, 100,100);
+		this.nextLoc();
+	}
 	public void resetAnimation(){
 		intX = 0;
 		intY = 0;
