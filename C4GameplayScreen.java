@@ -17,6 +17,8 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 	String strBoardFile = "";
 	String strP1File= "";
 	String strP2File= "";
+	String strChatMessage;
+	String strUsername = "";
 	BufferedImage thebackground = null;
 	BufferedImage theboard = null;
 	BufferedImage player1piece = null;
@@ -26,6 +28,7 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 	boolean blnDroppedPiece = false;
 	boolean blnPlayedPiece = false;
 	boolean blnInRange = false;
+	boolean blnHasWon = false;
 	ConnectPiece newgamepiece = new ConnectPiece();
 	moduleBackendBoard arrayboard = new moduleBackendBoard();
 	int intColumnDropped;
@@ -41,7 +44,7 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 	SuperSocketMaster ssm;
 	String prefix;
 
-	
+	//JComponents
 	JTextArea chatarea;
 	JScrollPane chatscroll;
 	JTextField typechat = new JTextField ("Type in chat...");
@@ -50,6 +53,14 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 	public void actionPerformed(ActionEvent evt){
 		if(evt.getSource() == thetimer){
 			this.repaint();
+		}
+		if(evt.getSource() == typechat){
+			//gets chat message and username, prints it to your own screen, then sends it over to the others
+			strChatMessage = typechat.getText();
+			chatarea.append(strUsername+" says: " + strChatMessage+"\n");
+			chatarea.setCaretPosition(chatarea.getDocument().getLength());
+			ssm.sendText("chat,"+strUsername+","+strChatMessage);
+			typechat.setText("");
 		}
 	}
 		
@@ -312,12 +323,17 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 				if(blnDroppedPiece) {
 					arrayboard.addPosition(intColumnDropped);
 					newgamepiece.intRow = arrayboard.intCurrentRow;
-					for(int intRows = 5; intRows >= 0; intRows--){
+					/*/for(int intRows = 5; intRows >= 0; intRows--){
 						System.out.println("!!!! intRows are "+intRows);
 						if(arrayboard.intBoard[intRows][intColumnDropped] != 0){
 							newgamepiece.intRow = intRows;
 						}
+					}/*/
+					blnHasWon = arrayboard.checkWinner(intTurn);
+					if(blnHasWon == true){
+						ssm.sendText("win"+","+intTurn);
 					}
+					
 				}
 			}
 			System.out.println("!!!! mouse released method end");
@@ -385,6 +401,7 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 		
 		typechat.setSize(new Dimension(380,50));
 		typechat.setLocation(850,400);
+		typechat.addActionListener(this);
 		this.add(typechat);
 	}
 

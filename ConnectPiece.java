@@ -86,7 +86,7 @@ public class ConnectPiece{
 		System.out.println(intColumn);
 		System.out.println("Row: " + intRow);
 		intColumnCoords = (intColumn*100)+800;
-		g.setColor((new Color(40, 70, intB)));
+		g.setColor(Color.RED);
 		g.fillOval(intColumnCoords, intY, 100,100);
 		this.nextLoc();
 	}

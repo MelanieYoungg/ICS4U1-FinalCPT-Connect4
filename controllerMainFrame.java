@@ -74,6 +74,8 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 			     startMenu.statusLabel.setText("Server connected.");
 			 }else {
 				 startMenu.statusLabel.setText("Server is unavilable.");
+				 startMenu.clientButton.setEnabled(true);
+				 startMenu.ipAddress.setEnabled(true);
 			 }
 			    
 		 }else if(evt.getSource() == startMenu.playButton) {
@@ -157,7 +159,16 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 	    				gameplaypanel.intColumnDropped = Integer.parseInt(textArray[1]);
 	    			}
 	    			//gameplaypanel.intTurn = 1;
-	    		}
+	    		}else if (textArray[0].equals("win")){
+						gameplaypanel.blnHasWon = true;
+						System.out.println("Player "+textArray[1]+" has won!");
+					
+				}else if (textArray[0].equalsIgnoreCase("chat")){
+					//puts username and chat message into the chat box
+					gameplaypanel.chatarea.append(textArray[1]+" says: " + textArray[2]+"\n");
+					gameplaypanel.chatarea.setCaretPosition(gameplaypanel.chatarea.getDocument().getLength());
+				
+				}
 	    			//ConnectPiece newgamepiece = new ConnectPiece();
 	    			gameplaypanel.newgamepiece.intColumn = gameplaypanel.intColumnDropped;
 	    			//if(blnDroppedPiece) {
@@ -171,6 +182,11 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 					}
 				//}
 	    	}	
+		}
+		if(gameplaypanel.blnHasWon == true){
+			winnerLoserScreen.setPreferredSize(new Dimension(1280, 720));
+			theframe.setContentPane(winnerLoserScreen);
+			theframe.pack();
 		}
 	}
 	public void stateChanged(ChangeEvent evt){}
