@@ -13,8 +13,8 @@ public class ConnectPiece{
 	String strTurn = "player1";
 	int intColumn;
 	int intRow = 5; 
-	int intColumnCoords = (intColumn*100)+50;
-	int intRowCoords = (intRow*100)+50;
+	int intColumnCoords = intColumn*100+50;
+	int intRowCoords = intRow*100+50;
 	int intB;
 	boolean blnStay = false;
 
@@ -23,12 +23,14 @@ public class ConnectPiece{
 	
 	//method
 	public void nextLoc(){
-		intRowCoords = (intRow*100)+50;
+		System.out.println("!!!! intDefY ="+intDefY);
+		intRowCoords = intRow*100+50;
 		if(intRowCoords >= intY){
 			intY = intY+intDefY;
 		}else{
 			intDefY = 0;
 		}
+		
 	}
 	public void drawOnBoard(Graphics g){
 		/*/if(strTurn.equalsIgnoreCase("player1")){
@@ -61,12 +63,18 @@ public class ConnectPiece{
 		}else if (strTurn.equalsIgnoreCase("player2")){
 			g.drawImage(player2piece, intX-50, intY-50, null);
 		}/*/
+		
 		System.out.println(intColumn);
 		System.out.println("Row: " + intRow);
-		intColumnCoords = (intColumn*100)+50;
-		g.setColor((new Color(40, 70, intB)));
-		g.fillOval(intColumnCoords, intY, 100,100);
-		this.nextLoc();
+		if(intRow>0) {
+			intColumnCoords = intColumn*100+50;
+			g.setColor((new Color(40, 70, intB)));
+			System.out.println("!!!!!!!! intY is "+intY);
+			g.fillOval(intColumnCoords, intY, 100,100);
+			this.nextLoc();
+		}else {
+			intDefY = 20;
+		}
 	}
 	public void dropAnimationHelp(Graphics g){
 		/*/if(strTurn.equalsIgnoreCase("player1")){

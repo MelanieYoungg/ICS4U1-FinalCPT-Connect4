@@ -17,8 +17,10 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 	C4ThemeSelectionScreen themeSelectionScreen = new C4ThemeSelectionScreen();
 
 	//Networking Properties
-	boolean isServer;
-	SuperSocketMaster ssm;
+	//boolean isServer;
+	//SuperSocketMaster ssm;
+	//temperary hardcode, may in configuration file.
+	int port = 6112;
 	
 	//METHODS
 	public void changeTheme(String strTheme){
@@ -42,35 +44,42 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 		if(evt.getSource() == startMenu.serverButton){
 			startMenu.serverButton.setEnabled(false); 
 			startMenu.clientButton.setVisible(false);
-			isServer = true;
+			gameplaypanel.isServer = true;
 			startMenu.ipAddress.setEnabled(false);
 			startMenu.userName.setEnabled(false);
-		    //ssm = new SuperSocketMaster(ipAddress.getText(), 1234, this);
-		    /*boolean gotConnect = ssm.connect();
+			//startMenu.statusLabel.setText("Server connected");
+			gameplaypanel.ssm = new SuperSocketMaster(port, this);
+			gameplaypanel.prefix = "Server";
+			gameplaypanel.intTurn = 1;
+		    boolean gotConnect = gameplaypanel.ssm.connect();
 		    if(gotConnect){
-		        //discBut.setEnabled(true);
-		        //texttosend.append("Server Address: "+ssm.getMyAddress()+"\n");
-		        //texttosend.append("Server Hostname: "+ssm.getMyHostname()+"\n");
-		    }else{
-		       // serverBut.setEnabled(true); 
-		        //clientBut.setEnabled(true); 
-		        //ipaddress.setEnabled(true);
-		        //port.setEnabled(true);
-		    }*/
+		    	System.out.println("got connection!");
+		    	startMenu.statusLabel.setText("Server Start");
+				
+		     }else{
+		    	startMenu.statusLabel.setText("Server Start failed");
+		    }
 		      
 		 }else if(evt.getSource() == startMenu.clientButton) {
 			 startMenu.clientButton.setEnabled(false); 
 			 startMenu.serverButton.setVisible(false);
-			 isServer = false;
+			 gameplaypanel.isServer = false;
 			 startMenu.ipAddress.setEnabled(false);
 			 startMenu.userName.setEnabled(false);
+			 gameplaypanel.ssm = new SuperSocketMaster(startMenu.ipAddress.getText(), port, this);
+			 gameplaypanel.prefix = "Client";
+			 gameplaypanel.intTurn = 2;
+			 boolean gotConnect = gameplaypanel.ssm.connect();
+			 if(gotConnect){
+			     startMenu.statusLabel.setText("Server connected.");
+			 }else {
+				 startMenu.statusLabel.setText("Server is unavilable.");
+			 }
 			    
 		 }else if(evt.getSource() == startMenu.playButton) {
 			 if(startMenu.ipAddress.getText() != null && startMenu.userName.getText() != null 
 					 && !startMenu.ipAddress.getText().isEmpty() && !startMenu.userName.getText().isEmpty() 
 					 && (!startMenu.serverButton.isVisible() || !startMenu.clientButton.isVisible())) {
-				 //ssm = new SuperSocketMaster(ipAddress.getText(), 1234, this);
-				 //boolean gotConnect = ssm.connect();
 				 gameplaypanel.setPreferredSize(new Dimension(1280, 720));
 				 theframe.setContentPane(gameplaypanel);
 				 theframe.pack();
@@ -93,9 +102,7 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 
 		}else if(evt.getSource() == startMenu.menuItemTheme){
 
-		}
-
-		//C4HelpScreen.java
+		}//C4HelpScreen.java
 		else if(evt.getSource() == helppanel.backbutton) {
 			startMenu.setPreferredSize(new Dimension(1280, 720));
 			theframe.setContentPane(startMenu);
@@ -125,6 +132,45 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 			startMenu.setPreferredSize(new Dimension(1280, 720));
 			theframe.setContentPane(startMenu);
 			theframe.pack();
+		}else if(evt.getSource() == gameplaypanel.ssm) {
+			
+			String strMessage = "";
+	    	String ssmText = gameplaypanel.ssm.readText();
+	    	String[] textArray = ssmText.split(",");
+	    	if(textArray.length>0) {
+	    		System.out.println("ssm event from "+textArray[0]);
+	    		if(textArray[0].equals("Server")) {
+	    			System.out.println("!!! event from server");
+	    			if(!gameplaypanel.isServer) {
+	    				gameplaypanel.intTurn = 2;
+	    			
+	    				gameplaypanel.blnDroppedPiece = true;
+	    				gameplaypanel.intColumnDropped = Integer.parseInt(textArray[1]);
+	    			}
+	    			//gameplaypanel.intTurn = 2;
+	    			System.out.println("!!! event from server, intTurn is "+gameplaypanel.intTurn);
+	    		}else if(textArray[0].equals("Client")) {
+	    			
+	    			if(gameplaypanel.isServer) {
+	    				gameplaypanel.intTurn = 1;
+	    				gameplaypanel.blnDroppedPiece = true;
+	    				gameplaypanel.intColumnDropped = Integer.parseInt(textArray[1]);
+	    			}
+	    			//gameplaypanel.intTurn = 1;
+	    		}
+	    			//ConnectPiece newgamepiece = new ConnectPiece();
+	    			gameplaypanel.newgamepiece.intColumn = gameplaypanel.intColumnDropped;
+	    			//if(blnDroppedPiece) {
+					gameplaypanel.arrayboard.addPosition(gameplaypanel.intColumnDropped);
+					gameplaypanel.newgamepiece.intRow = gameplaypanel.arrayboard.intCurrentRow;
+					for(int intRows = 5; intRows >= 0; intRows--){
+						System.out.println("!!!! intRows are "+intRows);
+						if(gameplaypanel.arrayboard.intBoard[intRows][gameplaypanel.intColumnDropped] != 0){
+							gameplaypanel.newgamepiece.intRow = intRows;
+						}
+					}
+				//}
+	    	}	
 		}
 	}
 	public void stateChanged(ChangeEvent evt){}
