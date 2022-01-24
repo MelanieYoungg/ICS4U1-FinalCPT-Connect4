@@ -29,6 +29,7 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 	boolean blnPlayedPiece = false;
 	boolean blnInRange = false;
 	boolean blnHasWon = false;
+	boolean blnHasLost = false;
 	ConnectPiece newgamepiece = new ConnectPiece();
 	moduleBackendBoard arrayboard = new moduleBackendBoard();
 	int intColumnDropped;
@@ -109,33 +110,8 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 			
 		}
 		
-		
-		/*/drawing the game piece in the board
-		if(newgamepiece.blnStay == true && blnDroppedPiece == false && blnHoldingPiece == false){
-			if(strTurn.equalsIgnoreCase("player1")){
-				//ConnectPiece playedpiece = new ConnectPiece();
-				//newgamepiece.intB = 100;
-				newgamepiece.intX = intColumnDropped*100+50;
-				newgamepiece.intY = intRowDropped*100+50;
-				newgamepiece.drawOnBoard(g);
-				//strTurn = "player2";
-				//System.out.println(strTurn);
-			}else if (strTurn.equalsIgnoreCase("player2")){
-				//ConnectPiece playedpiece = new ConnectPiece();
-				//newgamepiece.intB = 20;
-				newgamepiece.intX = intColumnDropped*100+50;
-				newgamepiece.intY = intRowDropped*100+50;
-				newgamepiece.drawOnBoard(g);
-				//strTurn = "player1";
-				//System.out.println(strTurn);
-			}
-			//need to get the drawn piece to stay in the right spot. As of right now the previous game pieces also move to the current column drop.
-			//it cant be in an IF STATEMENT because it will just get overridden
-			//do i need to make all of the bln variables declared in the Connect piece object? (except blnPlayedPiece bc that determines the turn system) 
-		}/*/
-		
 		//turn system
-		if (blnPlayedPiece == true){
+		if (blnPlayedPiece == true && blnHasWon == false){
 			System.out.println("!!!! start turn system. intTurn is"+intTurn);
 			if(intTurn == 1){
 				newgamepiece.intB = 100;
@@ -149,7 +125,7 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 				blnPlayedPiece = false;
 			}
 		}
-		
+
 	}
 	//loading theme
 	public String LoadTheme(){
@@ -213,6 +189,7 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 	public void mouseExited(MouseEvent evt){
 	}
 	public void mouseEntered(MouseEvent evt){
+		
 	}
 	public void mouseReleased(MouseEvent evt){
 		System.out.println("!!!!! mouse released");
@@ -323,12 +300,7 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 				if(blnDroppedPiece) {
 					arrayboard.addPosition(intColumnDropped);
 					newgamepiece.intRow = arrayboard.intCurrentRow;
-					/*/for(int intRows = 5; intRows >= 0; intRows--){
-						System.out.println("!!!! intRows are "+intRows);
-						if(arrayboard.intBoard[intRows][intColumnDropped] != 0){
-							newgamepiece.intRow = intRows;
-						}
-					}/*/
+					//checking if player has won
 					blnHasWon = arrayboard.checkWinner(intTurn);
 					if(blnHasWon == true){
 						ssm.sendText("win"+","+intTurn);

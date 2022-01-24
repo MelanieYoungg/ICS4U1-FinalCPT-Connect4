@@ -8,6 +8,7 @@ import java.io.*;
 public class controllerMainFrame implements ActionListener,ChangeListener {
 	//PROPERTIES
 	JFrame theframe = new JFrame("Connect 4");
+	int intwinReceived = 0;
 	
 	//Screens
 	C4GameplayScreen gameplaypanel = new C4GameplayScreen();
@@ -160,7 +161,11 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 	    			}
 	    			//gameplaypanel.intTurn = 1;
 	    		}else if (textArray[0].equals("win")){
+						intwinReceived = intwinReceived+1;
 						gameplaypanel.blnHasWon = true;
+						if(intwinReceived <= 1){
+							gameplaypanel.ssm.sendText("win"+","+textArray[1]);
+						}
 						System.out.println("Player "+textArray[1]+" has won!");
 					
 				}else if (textArray[0].equalsIgnoreCase("chat")){
