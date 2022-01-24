@@ -161,12 +161,13 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 	    			}
 	    			//gameplaypanel.intTurn = 1;
 	    		}else if (textArray[0].equals("win")){
+					System.out.println("you have won");
 						intwinReceived = intwinReceived+1;
 						gameplaypanel.blnHasWon = true;
 						if(intwinReceived <= 1){
 							gameplaypanel.ssm.sendText("win"+","+textArray[1]);
+							System.out.println("Player "+textArray[1]+" has won!");
 						}
-						System.out.println("Player "+textArray[1]+" has won!");
 					
 				}else if (textArray[0].equalsIgnoreCase("chat")){
 					//puts username and chat message into the chat box
@@ -213,7 +214,10 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 		//Action Listener for Theme Selection
 		themeSelectionScreen.christmasButton.addActionListener(this);
 		themeSelectionScreen.originalButton.addActionListener(this);
-		themeSelectionScreen.easterButton.addActionListener(this);		
+		themeSelectionScreen.easterButton.addActionListener(this);	
+		
+		//Action listener for Help Menu
+		helppanel.backbutton.addActionListener(this);	
 		
 		//Boiler Plate Code
 		theframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

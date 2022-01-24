@@ -10,7 +10,7 @@ public class ConnectPiece{
 	int intDefY = 20;
 	String strPlayer1File;
 	String strPlayer2File;
-	String strTurn = "player1";
+	int intTurn;
 	int intColumn;
 	int intRow = 5; 
 	int intColumnCoords = intColumn*100+50;
@@ -46,10 +46,10 @@ public class ConnectPiece{
 		
 	}
 	public void drawIt(Graphics g){
-		/*/if(strTurn.equalsIgnoreCase("player1")){
-			System.out.println("File: " + strPlayer1File);
+		/*/if(intTurn == 1){
+			System.out.println("OOOOO File: " + strPlayer1File);
 			g.drawImage(player1piece, intX-50, intY-50, null);
-		}else if (strTurn.equalsIgnoreCase("player2")){
+		}else if (intTurn == 2){
 			g.drawImage(player2piece, intX-50, intY-50, null);
 		}/*/
 		g.setColor(Color.BLACK);
@@ -77,12 +77,6 @@ public class ConnectPiece{
 		}
 	}
 	public void dropAnimationHelp(Graphics g){
-		/*/if(strTurn.equalsIgnoreCase("player1")){
-			System.out.println("File: " + strPlayer1File);
-			g.drawImage(player1piece, intX-50, intY-50, null);
-		}else if (strTurn.equalsIgnoreCase("player2")){
-			g.drawImage(player2piece, intX-50, intY-50, null);
-		}/*/
 		System.out.println(intColumn);
 		System.out.println("Row: " + intRow);
 		intColumnCoords = (intColumn*100)+800;
