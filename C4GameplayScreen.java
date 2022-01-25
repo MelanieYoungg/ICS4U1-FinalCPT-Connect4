@@ -210,7 +210,7 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 					System.out.println("Column dropped: "+intColumnDropped);
 					System.out.println("!!! ssm event send out");
 					ssm.sendText(prefix+","+intColumnDropped);
-					
+					changeTurn();
 					System.out.println("WHOS TURN: "+ intTurn);
 				}else if(intMouseX >= 150 && intMouseX < 250){
 					intColumnDropped = 1;
@@ -220,7 +220,7 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 					System.out.println("Column dropped: "+intColumnDropped);
 					System.out.println("!!! ssm event send out");
 					ssm.sendText(prefix+","+intColumnDropped);
-					
+					changeTurn();
 				}else if(intMouseX >= 250 && intMouseX < 350){
 					intColumnDropped = 2;
 					ConnectPiece newgamepiece = new ConnectPiece();
@@ -229,7 +229,7 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 					System.out.println("Column dropped: "+intColumnDropped);
 					System.out.println("!!! ssm event send out");
 					ssm.sendText(prefix+","+intColumnDropped);
-					
+					changeTurn();
 				}else if(intMouseX >= 350 && intMouseX < 450){
 					intColumnDropped = 3;
 					ConnectPiece newgamepiece = new ConnectPiece();
@@ -238,7 +238,7 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 					System.out.println("Column dropped: "+intColumnDropped);
 					System.out.println("!!! ssm event send out");
 					ssm.sendText(prefix+","+intColumnDropped);
-					
+					changeTurn();
 				}else if(intMouseX >= 450 && intMouseX < 550){
 					intColumnDropped = 4;
 					ConnectPiece newgamepiece = new ConnectPiece();
@@ -247,7 +247,7 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 					System.out.println("Column dropped: "+intColumnDropped);
 					System.out.println("!!! ssm event send out");
 					ssm.sendText(prefix+","+intColumnDropped);
-					
+					changeTurn();
 				}else if(intMouseX >= 550 && intMouseX < 650){
 					intColumnDropped = 5;
 					ConnectPiece newgamepiece = new ConnectPiece();
@@ -256,7 +256,7 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 					System.out.println("Column dropped: "+intColumnDropped);
 					System.out.println("!!! ssm event send out");
 					ssm.sendText(prefix+","+intColumnDropped);
-					
+					changeTurn();
 				}else if(intMouseX >= 650 && intMouseX <= 750){
 					intColumnDropped = 6;
 					ConnectPiece newgamepiece = new ConnectPiece();
@@ -265,7 +265,7 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 					System.out.println("Column dropped: "+intColumnDropped);
 					System.out.println("!!! ssm event send out");
 					ssm.sendText(prefix+","+intColumnDropped);
-					
+					changeTurn();
 				}
 		
 				//if()
@@ -279,13 +279,17 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 						ssm.sendText("win"+","+intTurn);
 					}
 				}
-				if(isServer) {
-						intTurn = 2;
-					}else {
-						intTurn =1;
-					}
+				
 			}
 			System.out.println("!!!! mouse released method end");
+		}
+	}
+	
+	private void changeTurn() {
+		if(isServer) {
+			intTurn = 2;
+		}else {
+			intTurn =1;
 		}
 	}
 	public void mousePressed(MouseEvent evt){

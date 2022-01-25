@@ -84,6 +84,7 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 					 && !startMenu.ipAddress.getText().isEmpty() && !startMenu.userName.getText().isEmpty() 
 					 && (!startMenu.serverButton.isVisible() || !startMenu.clientButton.isVisible())) {
 				 gameplaypanel.setPreferredSize(new Dimension(1280, 720));
+				 gameplaypanel.strUsername = startMenu.userName.getText();
 				 theframe.setContentPane(gameplaypanel);
 				 theframe.pack();
 			 }
@@ -150,6 +151,8 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 	    				gameplaypanel.blnDroppedPiece = true;
 	    				gameplaypanel.intColumnDropped = Integer.parseInt(textArray[1]);
 	    			}
+	    			//ConnectPiece newgamepiece = new ConnectPiece();
+	    			setConnectPiece();
 	    			//gameplaypanel.intTurn = 2;
 	    			System.out.println("!!! event from server, intTurn is "+gameplaypanel.intTurn);
 	    		}else if(textArray[0].equals("Client")) {
@@ -159,6 +162,8 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 	    				gameplaypanel.blnDroppedPiece = true;
 	    				gameplaypanel.intColumnDropped = Integer.parseInt(textArray[1]);
 	    			}
+	    			//ConnectPiece newgamepiece = new ConnectPiece();
+	    			setConnectPiece();
 	    			//gameplaypanel.intTurn = 1;
 	    		}else if (textArray[0].equals("win")){
 					System.out.println("you have won");
@@ -175,17 +180,7 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 					gameplaypanel.chatarea.setCaretPosition(gameplaypanel.chatarea.getDocument().getLength());
 				
 				}
-	    			//ConnectPiece newgamepiece = new ConnectPiece();
-	    			gameplaypanel.newgamepiece.intColumn = gameplaypanel.intColumnDropped;
-	    			//if(blnDroppedPiece) {
-					gameplaypanel.arrayboard.addPosition(gameplaypanel.intColumnDropped);
-					gameplaypanel.newgamepiece.intRow = gameplaypanel.arrayboard.intCurrentRow;
-					for(int intRows = 5; intRows >= 0; intRows--){
-						System.out.println("!!!! intRows are "+intRows);
-						if(gameplaypanel.arrayboard.intBoard[intRows][gameplaypanel.intColumnDropped] != 0){
-							gameplaypanel.newgamepiece.intRow = intRows;
-						}
-					}
+	    			
 				//}
 	    	}	
 		}
@@ -195,6 +190,21 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 			theframe.pack();
 		}
 	}
+	
+	private void setConnectPiece() {
+		//ConnectPiece newgamepiece = new ConnectPiece();
+		gameplaypanel.newgamepiece.intColumn = gameplaypanel.intColumnDropped;
+		//if(blnDroppedPiece) {
+		gameplaypanel.arrayboard.addPosition(gameplaypanel.intColumnDropped);
+		gameplaypanel.newgamepiece.intRow = gameplaypanel.arrayboard.intCurrentRow;
+		for(int intRows = 5; intRows >= 0; intRows--){
+			System.out.println("!!!! intRows are "+intRows);
+			if(gameplaypanel.arrayboard.intBoard[intRows][gameplaypanel.intColumnDropped] != 0){
+				gameplaypanel.newgamepiece.intRow = intRows;
+			}
+		}
+	}
+	
 	public void stateChanged(ChangeEvent evt){}
 	
 	//constructor
