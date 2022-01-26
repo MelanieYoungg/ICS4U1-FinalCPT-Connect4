@@ -130,13 +130,28 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 			gameplaypanel.arrayboard = new moduleBackendBoard();
 			blnDisconnect = true;
 			//NEED TO RESET TURNS AND CONNECT PIECES
+			intwinReceived = 0;
+			gameplaypanel.blnHoldingPiece = false;
+			gameplaypanel.blnDroppedPiece = false;
+			gameplaypanel.blnPlayedPiece = false;
+			gameplaypanel.blnInRange = false;
+			gameplaypanel.blnHasWon = false;
+			gameplaypanel.blnHasLost = false;
+			if(gameplaypanel.prefix.equalsIgnoreCase("client")){
+				gameplaypanel.intTurn = 2;
+			}else if(gameplaypanel.prefix.equalsIgnoreCase("server")){
+				gameplaypanel.intTurn = 1;
+			}
 		}else if(evt.getSource() == winnerLoserScreen.disconnectButton){
+			blnDisconnect = true;
+			gameplaypanel.ssm.sendText("disconnect"+","+blnDisconnect);
 			gameplaypanel.blnHasWon	= false;
 			startMenu.setPreferredSize(new Dimension(1280, 720));
 			theframe.setContentPane(startMenu);
 			theframe.pack();
 			gameplaypanel.ssm.disconnect();
 			//resetting the start menu
+			startMenu.statusLabel.setText("");
 			startMenu.clientButton.setEnabled(true); 
 			startMenu.serverButton.setVisible(true);
 			startMenu.ipAddress.setEnabled(true);
@@ -200,16 +215,41 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 					gameplaypanel.chatarea.append(textArray[1]+" says: " + textArray[2]+"\n");
 					gameplaypanel.chatarea.setCaretPosition(gameplaypanel.chatarea.getDocument().getLength());
 				
-				}else if (textArray[0].equalsIgnoreCase("disconnect")){
+				}else if (textArray[0].equalsIgnoreCase("disconnect")&& textArray[1].equalsIgnoreCase("false")){
 						gameplaypanel.blnHasWon	= false;
 						gameplaypanel.setPreferredSize(new Dimension(1280, 720));
 						theframe.setContentPane(gameplaypanel);
 						theframe.pack();
 						//reset the board
 						gameplaypanel.arrayboard = new moduleBackendBoard();
+						intwinReceived = 0;
+						gameplaypanel.blnHoldingPiece = false;
+						gameplaypanel.blnDroppedPiece = false;
+						gameplaypanel.blnPlayedPiece = false;
+						gameplaypanel.blnInRange = false;
+						gameplaypanel.blnHasWon = false;
+						gameplaypanel.blnHasLost = false;
+						if(gameplaypanel.prefix.equalsIgnoreCase("client")){
+							gameplaypanel.intTurn = 2;
+						}else if(gameplaypanel.prefix.equalsIgnoreCase("server")){
+							gameplaypanel.intTurn = 1;
+						}
+				}else if (textArray[0].equalsIgnoreCase("disconnect")&& textArray[1].equalsIgnoreCase("true")){
+	    			gameplaypanel.blnHasWon	= false;
+					startMenu.setPreferredSize(new Dimension(1280, 720));
+					theframe.setContentPane(startMenu);
+					theframe.pack();
+					gameplaypanel.ssm.disconnect();
+					//resetting the start menu
+					startMenu.statusLabel.setText("");
+					startMenu.clientButton.setEnabled(true); 
+					startMenu.serverButton.setVisible(true);
+					startMenu.ipAddress.setEnabled(true);
+					startMenu.userName.setEnabled(true);
+					startMenu.menuBar.setVisible(true);
+					startMenu.clientButton.setVisible(true);
+					startMenu.serverButton.setEnabled(true);
 				}
-	    			
-				//}
 	    	}	
 		}
 		if(gameplaypanel.blnHasWon == true){

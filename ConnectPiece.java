@@ -87,7 +87,7 @@ public class ConnectPiece{
 	public void resetAnimation(){
 		intX = 0;
 		intY = 0;
-		intDefY = 5;
+		intDefY = 20;
 		intColumn = 0;
 		intColumnCoords = intColumn+50;
 	
