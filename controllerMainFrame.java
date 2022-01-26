@@ -68,6 +68,7 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 			 gameplaypanel.isServer = false;
 			 startMenu.ipAddress.setEnabled(false);
 			 startMenu.userName.setEnabled(false);
+			 startMenu.menuBar.setVisible(false);
 			 gameplaypanel.ssm = new SuperSocketMaster(startMenu.ipAddress.getText(), port, this);
 			 gameplaypanel.prefix = "Client";
 			 gameplaypanel.intTurn = 2;
@@ -118,14 +119,19 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 		 
 		//C4WinnerLoserScreen.java
 		else if(evt.getSource() == winnerLoserScreen.playAgainButton){
+			gameplaypanel.blnHasWon	= false;
+			System.out.println("PLAY AGAIN"); //this prints out, which means its not the button thats the problem??
 			gameplaypanel.setPreferredSize(new Dimension(1280, 720));
 			theframe.setContentPane(gameplaypanel);
 			theframe.pack();
+			//need to reset the game here
 		}else if(evt.getSource() == winnerLoserScreen.disconnectButton){
-			//ssm.disconnect();
+			gameplaypanel.blnHasWon	= false;
 			startMenu.setPreferredSize(new Dimension(1280, 720));
 			theframe.setContentPane(startMenu);
 			theframe.pack();
+			gameplaypanel.ssm.disconnect();
+			//Need to reenable buttons and textfields for the start menu here
 		}
 
 		//C4ThemeSelectionScreen.java
@@ -192,6 +198,10 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 			theframe.setContentPane(winnerLoserScreen);
 			theframe.pack();
 			winnerLoserScreen.winnerTextArea.setText("\n             "+strWinner+" Wins!");
+			if(gameplaypanel.prefix.equalsIgnoreCase("client")){
+				winnerLoserScreen.playAgainButton.setEnabled(false);
+				winnerLoserScreen.playAgainButton.setText("Waiting for server action...");
+			}
 		}
 	}
 	

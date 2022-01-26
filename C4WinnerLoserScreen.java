@@ -5,7 +5,7 @@ import java.io.*;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 
-public class C4WinnerLoserScreen extends JPanel{
+public class C4WinnerLoserScreen extends JPanel implements ActionListener{
 	//PROPERTIES
 	String strBackgroundFile = "Connect4BG.jpg";
 	BufferedImage imgBackground;
@@ -17,6 +17,8 @@ public class C4WinnerLoserScreen extends JPanel{
 	//METHODS
 	public void paintComponent(Graphics g){
 		g.drawImage(imgBackground, 0, 0, null);
+	}
+	public void actionPerformed(ActionEvent evt){
 	}
 	
 
@@ -41,11 +43,13 @@ public class C4WinnerLoserScreen extends JPanel{
 		playAgainButton.setFont(new Font("Serif", Font.PLAIN, 30));
 		playAgainButton.setSize(680, 70);
 		playAgainButton.setLocation(300, 350);
+		playAgainButton.addActionListener(this);
 		this.add(playAgainButton);
 		
 		disconnectButton.setFont(new Font("Serif", Font.PLAIN, 30));
 		disconnectButton.setSize(680, 70);
 		disconnectButton.setLocation(300, 450);
+		disconnectButton.addActionListener(this);
 		this.add(disconnectButton);
 	}
 }
