@@ -10,6 +10,7 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 	JFrame theframe = new JFrame("Connect 4");
 	int intwinReceived = 0;
 	String strWinner;
+	boolean blnDisconnect = true;
 	
 	//Screens
 	C4GameplayScreen gameplaypanel = new C4GameplayScreen();
@@ -119,19 +120,30 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 		 
 		//C4WinnerLoserScreen.java
 		else if(evt.getSource() == winnerLoserScreen.playAgainButton){
+			blnDisconnect = false;
+			gameplaypanel.ssm.sendText("disconnect"+","+blnDisconnect);
 			gameplaypanel.blnHasWon	= false;
-			System.out.println("PLAY AGAIN"); //this prints out, which means its not the button thats the problem??
 			gameplaypanel.setPreferredSize(new Dimension(1280, 720));
 			theframe.setContentPane(gameplaypanel);
 			theframe.pack();
-			//need to reset the game here
+			//reset the board
+			gameplaypanel.arrayboard = new moduleBackendBoard();
+			blnDisconnect = true;
+			//NEED TO RESET TURNS AND CONNECT PIECES
 		}else if(evt.getSource() == winnerLoserScreen.disconnectButton){
 			gameplaypanel.blnHasWon	= false;
 			startMenu.setPreferredSize(new Dimension(1280, 720));
 			theframe.setContentPane(startMenu);
 			theframe.pack();
 			gameplaypanel.ssm.disconnect();
-			//Need to reenable buttons and textfields for the start menu here
+			//resetting the start menu
+			startMenu.clientButton.setEnabled(true); 
+			startMenu.serverButton.setVisible(true);
+			startMenu.ipAddress.setEnabled(true);
+			startMenu.userName.setEnabled(true);
+			startMenu.menuBar.setVisible(true);
+			startMenu.clientButton.setVisible(true);
+			startMenu.serverButton.setEnabled(true); 
 		}
 
 		//C4ThemeSelectionScreen.java
@@ -188,6 +200,13 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 					gameplaypanel.chatarea.append(textArray[1]+" says: " + textArray[2]+"\n");
 					gameplaypanel.chatarea.setCaretPosition(gameplaypanel.chatarea.getDocument().getLength());
 				
+				}else if (textArray[0].equalsIgnoreCase("disconnect")){
+						gameplaypanel.blnHasWon	= false;
+						gameplaypanel.setPreferredSize(new Dimension(1280, 720));
+						theframe.setContentPane(gameplaypanel);
+						theframe.pack();
+						//reset the board
+						gameplaypanel.arrayboard = new moduleBackendBoard();
 				}
 	    			
 				//}
