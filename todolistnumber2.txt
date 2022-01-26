@@ -2,9 +2,9 @@
 
 PRIORITY
 - fix theme screen + selection (ethan)
-- figure out how to go back from screens to the start menu (group - ask cadawas)
+- figure out how to go back from screens to the start menu *DONE*
 - figure out how to send usernames over the network (Leo)
-- figure out how to send win messages to both client and server (Melanie)
+- figure out how to send win messages to both client and server (Melanie) *DONE*
 - reset function (ethan)
 
 NOT URGENT:

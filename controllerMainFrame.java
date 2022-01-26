@@ -9,6 +9,7 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 	//PROPERTIES
 	JFrame theframe = new JFrame("Connect 4");
 	int intwinReceived = 0;
+	String strWinner;
 	
 	//Screens
 	C4GameplayScreen gameplaypanel = new C4GameplayScreen();
@@ -20,7 +21,7 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 	//Networking Properties
 	//boolean isServer;
 	//SuperSocketMaster ssm;
-	//temperary hardcode, may in configuration file.
+	//temporary hardcode, may in configuration file.
 	int port = 6112;
 	
 	//METHODS
@@ -29,11 +30,11 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 			PrintWriter txtTheme = new PrintWriter(new FileWriter("themes.txt", false));
 
 			String strFileData = "Original,OriginalBG.jpg,OriginalBoard.png,P1original.png,P2original.png\nChristmas,ChristmasBG.jpg,ChristmasBoard.png,P1christmas.png,P2christmas.png\nEaster,EasterBG.jpg,EasterBoard.png,P1easter.png,P2easter.png\n";
-			if(strTheme.equals("Christmas")){
+			if(strTheme.equalsIgnoreCase("Christmas")){
 				txtTheme.println(strFileData + "Current,christmas");
-			}else if(strTheme.equals("Original")){
+			}else if(strTheme.equalsIgnoreCase("Original")){
 				txtTheme.println(strFileData + "Current,original");
-			}else if(strTheme.equals("Easter")){
+			}else if(strTheme.equalsIgnoreCase("Easter")){
 				txtTheme.println(strFileData + "Current,easter");
 			}
 			txtTheme.close();
@@ -98,14 +99,16 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 
 		//Menu Items
 		else if(evt.getSource() == startMenu.menuItemChristmas){
-
+			changeTheme("Christmas");
 
 		}else if(evt.getSource() == startMenu.menuItemOriginal){
-
+			changeTheme("Original");
 		}else if(evt.getSource() == startMenu.menuItemEaster){
-
+			changeTheme("Easter");
 		}else if(evt.getSource() == startMenu.menuItemTheme){
-
+			themeSelectionScreen.setPreferredSize(new Dimension(1280, 720));
+			theframe.setContentPane(themeSelectionScreen);
+			theframe.pack();
 		}//C4HelpScreen.java
 		else if(evt.getSource() == helppanel.backbutton) {
 			startMenu.setPreferredSize(new Dimension(1280, 720));
@@ -167,11 +170,11 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 	    			//gameplaypanel.intTurn = 1;
 	    		}else if (textArray[0].equals("win")){
 					System.out.println("you have won");
-						intwinReceived = intwinReceived+1;
-						gameplaypanel.blnHasWon = true;
+					strWinner = textArray[2];
+					intwinReceived = intwinReceived+1;
+					gameplaypanel.blnHasWon = true;
 						if(intwinReceived <= 1){
-							gameplaypanel.ssm.sendText("win"+","+textArray[1]);
-							System.out.println("Player "+textArray[1]+" has won!");
+							gameplaypanel.ssm.sendText("win"+","+textArray[1]+","+textArray[2]);
 						}
 					
 				}else if (textArray[0].equalsIgnoreCase("chat")){
@@ -188,6 +191,7 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 			winnerLoserScreen.setPreferredSize(new Dimension(1280, 720));
 			theframe.setContentPane(winnerLoserScreen);
 			theframe.pack();
+			winnerLoserScreen.winnerTextArea.setText("\n             "+strWinner+" Wins!");
 		}
 	}
 	
@@ -216,6 +220,11 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 		startMenu.clientButton.addActionListener(this);
 		startMenu.playButton.addActionListener(this);
 		startMenu.helpButton.addActionListener(this);
+		startMenu.themeMenu.addActionListener(this);
+		startMenu.menuItemChristmas.addActionListener(this);
+		startMenu.menuItemEaster.addActionListener(this);
+		startMenu.menuItemOriginal.addActionListener(this);
+		startMenu.menuItemTheme.addActionListener(this);
 		
 		//Action Listener for Winner Loser Screen
 		winnerLoserScreen.playAgainButton.addActionListener(this);
@@ -225,6 +234,7 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 		themeSelectionScreen.christmasButton.addActionListener(this);
 		themeSelectionScreen.originalButton.addActionListener(this);
 		themeSelectionScreen.easterButton.addActionListener(this);	
+		themeSelectionScreen.backButton.addActionListener(this);
 		
 		//Action listener for Help Menu
 		helppanel.backbutton.addActionListener(this);	

@@ -47,7 +47,7 @@ public class ConnectPiece{
 	}
 	public void drawIt(Graphics g){
 		/*/if(intTurn == 1){
-			System.out.println("OOOOO File: " + strPlayer1File);
+			System.out.println("File: " + strPlayer1File);
 			g.drawImage(player1piece, intX-50, intY-50, null);
 		}else if (intTurn == 2){
 			g.drawImage(player2piece, intX-50, intY-50, null);
@@ -96,9 +96,9 @@ public class ConnectPiece{
 	//constructor
 	public ConnectPiece(){
 		try{
-			player1piece = ImageIO.read(new File(System.getProperty("user.dir") + "\\Pictures\\" + strPlayer1File));
+			player1piece = ImageIO.read(new File(System.getProperty("user.dir") + "\\Pictures\\" + "P1easter.png"));
 			System.out.println(strPlayer1File);
-			player2piece = ImageIO.read(new File(System.getProperty("user.dir") + "\\Pictures\\" + strPlayer2File));
+			player2piece = ImageIO.read(new File(System.getProperty("user.dir") + "\\Pictures\\" + "P2easter.png"));
 		}catch(IOException e){
 			System.out.println("Error loading game piece");
 		}

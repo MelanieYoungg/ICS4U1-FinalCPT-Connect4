@@ -77,6 +77,9 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 		
 		//drawing the game piece when grabbed
 		if(blnHoldingPiece == true){
+			newgamepiece.strPlayer1File = strP1File;
+			System.out.println("OOOOO P1FILE IS: "+ strP1File);
+			System.out.println("OOOOO NewGamePiece IS: "+ newgamepiece.strPlayer1File);
 			newgamepiece.drawIt(g);
 		}
 		//drawing the animation
@@ -276,7 +279,7 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 					//checking if player has won
 					blnHasWon = arrayboard.checkWinner(intTurn);
 					if(blnHasWon == true){
-						ssm.sendText("win"+","+intTurn);
+						ssm.sendText("win"+","+intTurn+","+strUsername);
 					}
 				}
 				changeTurn();
@@ -330,13 +333,15 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 			strBoardFile = strThemeElements[2];
 			strP1File = strThemeElements[3];
 			strP2File = strThemeElements[4];
-			newgamepiece.strPlayer1File = strP1File;
-			newgamepiece.strPlayer2File = strP2File;
+			//newgamepiece.strPlayer1File = strP1File;
+			//newgamepiece.strPlayer2File = strP2File;
 			
 			thebackground = ImageIO.read(new File(System.getProperty("user.dir") + "\\Pictures\\" + strBackgroundFile));
 			theboard = ImageIO.read(new File(System.getProperty("user.dir") + "\\Pictures\\" + strBoardFile));
 			player1piece = ImageIO.read(new File(System.getProperty("user.dir") + "\\Pictures\\" + strP1File));
+			newgamepiece.player1piece = this.player1piece;
 			player2piece = ImageIO.read(new File(System.getProperty("user.dir") + "\\Pictures\\" + strP2File));
+			newgamepiece.player2piece = this.player2piece;
 			
 		}catch(IOException e){
 			System.out.println("Error loading image");
