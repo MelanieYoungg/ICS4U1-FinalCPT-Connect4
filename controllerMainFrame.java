@@ -129,6 +129,7 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 				 theframe.setContentPane(gameplaypanel);
 				 theframe.pack();
 			 }
+			 gameplaypanel.intTurn = 1;
 			    
 		 }else if(evt.getSource() == startMenu.helpButton) {
 			 helppanel.setPreferredSize(new Dimension(1280, 720));
