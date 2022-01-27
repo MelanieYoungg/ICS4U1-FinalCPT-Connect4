@@ -197,6 +197,22 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 			startMenu.menuBar.setVisible(true);
 			startMenu.clientButton.setVisible(true);
 			startMenu.serverButton.setEnabled(true); 
+			//reset the board
+			gameplaypanel.arrayboard = new moduleBackendBoard();
+			blnDisconnect = true;
+			//NEED TO RESET TURNS AND CONNECT PIECES
+			intwinReceived = 0;
+			gameplaypanel.blnHoldingPiece = false;
+			gameplaypanel.blnDroppedPiece = false;
+			gameplaypanel.blnPlayedPiece = false;
+			gameplaypanel.blnInRange = false;
+			gameplaypanel.blnHasWon = false;
+			gameplaypanel.blnHasLost = false;
+			if(gameplaypanel.prefix.equalsIgnoreCase("client")){
+				gameplaypanel.intTurn = 2;
+			}else if(gameplaypanel.prefix.equalsIgnoreCase("server")){
+				gameplaypanel.intTurn = 1;
+			}
 		}
 
 		//C4ThemeSelectionScreen.java
@@ -287,7 +303,23 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 					startMenu.userName.setEnabled(true);
 					startMenu.menuBar.setVisible(true);
 					startMenu.clientButton.setVisible(true);
-					startMenu.serverButton.setEnabled(true);
+					startMenu.serverButton.setEnabled(true); 
+					//reset the board
+					gameplaypanel.arrayboard = new moduleBackendBoard();
+					blnDisconnect = true;
+					//NEED TO RESET TURNS AND CONNECT PIECES
+					intwinReceived = 0;
+					gameplaypanel.blnHoldingPiece = false;
+					gameplaypanel.blnDroppedPiece = false;
+					gameplaypanel.blnPlayedPiece = false;
+					gameplaypanel.blnInRange = false;
+					gameplaypanel.blnHasWon = false;
+					gameplaypanel.blnHasLost = false;
+					if(gameplaypanel.prefix.equalsIgnoreCase("client")){
+						gameplaypanel.intTurn = 2;
+					}else if(gameplaypanel.prefix.equalsIgnoreCase("server")){
+						gameplaypanel.intTurn = 1;
+					}
 				}
 	    	}	
 		}
@@ -299,6 +331,9 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 			if(gameplaypanel.prefix.equalsIgnoreCase("client")){
 				winnerLoserScreen.playAgainButton.setEnabled(false);
 				winnerLoserScreen.playAgainButton.setText("Waiting for server action...");
+			}else if(gameplaypanel.prefix.equalsIgnoreCase("server")){
+				winnerLoserScreen.playAgainButton.setEnabled(true);
+				winnerLoserScreen.playAgainButton.setText("Play again");
 			}
 		}
 	}
