@@ -1,8 +1,0 @@
-BUGS AND INSECTS
-1. The last selected theme will always be played, even though the display is server priority and server is first (Melanie) (fixed) 
-2. Swap client and server after reset (Melanie) (fixed) 
-3. If client goes first, colors get swapped (backburner)
-4. Gameplay drag and drop (Leo) (fixed) 
-
-To-Do
-1. Update Label on Client side after a server theme change
