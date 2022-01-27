@@ -23,7 +23,6 @@ public class ConnectPiece{
 	
 	//method
 	public void nextLoc(){
-		System.out.println("!!!! intDefY ="+intDefY);
 		intRowCoords = intRow*100+50;
 		if(intRowCoords >= intY){
 			intY = intY+intDefY;
@@ -33,43 +32,21 @@ public class ConnectPiece{
 		
 	}
 	public void drawOnBoard(Graphics g){
-		/*/if(strTurn.equalsIgnoreCase("player1")){
-			System.out.println("File: " + strPlayer1File);
-			g.drawImage(player1piece, intX-50, intY-50, null);
-		}else if (strTurn.equalsIgnoreCase("player2")){
-			g.drawImage(player2piece, intX-50, intY-50, null);
-		}/*/
-		System.out.println(intColumn);
 		blnStay = true;
-		g.setColor((new Color(40, 70, intB)));
+		g.setColor(Color.BLACK);
 		g.fillOval(intX, intY, 100,100);
 		
 	}
 	public void drawIt(Graphics g){
-		/*/if(intTurn == 1){
-			System.out.println("File: " + strPlayer1File);
-			g.drawImage(player1piece, intX-50, intY-50, null);
-		}else if (intTurn == 2){
-			g.drawImage(player2piece, intX-50, intY-50, null);
-		}/*/
 		g.setColor(Color.BLACK);
 		g.fillOval(intX-50, intY-50, 100,100);
 		
 	}
 	public void dropAnimation(Graphics g){
-		/*/if(strTurn.equalsIgnoreCase("player1")){
-			System.out.println("File: " + strPlayer1File);
-			g.drawImage(player1piece, intX-50, intY-50, null);
-		}else if (strTurn.equalsIgnoreCase("player2")){
-			g.drawImage(player2piece, intX-50, intY-50, null);
-		}/*/
 		
-		System.out.println(intColumn);
-		System.out.println("Row: " + intRow);
 		if(intRow>0) {
 			intColumnCoords = intColumn*100+50;
-			g.setColor((new Color(40, 70, intB)));
-			System.out.println("!!!!!!!! intY is "+intY);
+			g.setColor(Color.BLACK);
 			g.fillOval(intColumnCoords, intY, 100,100);
 			this.nextLoc();
 		}else {
@@ -77,8 +54,6 @@ public class ConnectPiece{
 		}
 	}
 	public void dropAnimationHelp(Graphics g){
-		System.out.println(intColumn);
-		System.out.println("Row: " + intRow);
 		intColumnCoords = (intColumn*100)+800;
 		g.setColor(Color.RED);
 		g.fillOval(intColumnCoords, intY, 100,100);
@@ -95,13 +70,7 @@ public class ConnectPiece{
 	
 	//constructor
 	public ConnectPiece(){
-		try{
-			player1piece = ImageIO.read(new File(System.getProperty("user.dir") + "\\Pictures\\" + "P1easter.png"));
-			System.out.println(strPlayer1File);
-			player2piece = ImageIO.read(new File(System.getProperty("user.dir") + "\\Pictures\\" + "P2easter.png"));
-		}catch(IOException e){
-			System.out.println("Error loading game piece");
-		}
+
 	}
 
 }

@@ -35,7 +35,7 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 	int intColumnDropped;
 	int intMouseX;
 	int intMouseY;
-	int intTurn;// = 1;
+	int intTurn;
 	
 	//Networking Properties
 	boolean isServer;
@@ -75,17 +75,11 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 		//drawing the game piece when grabbed
 		if(blnHoldingPiece == true){
 			newgamepiece.strPlayer1File = strP1File;
-			System.out.println("OOOOO P1FILE IS: "+ strP1File);
-			System.out.println("OOOOO NewGamePiece IS: "+ newgamepiece.strPlayer1File);
 			newgamepiece.drawIt(g);
 		}
 		//drawing the animation
 		if(blnDroppedPiece == true){
-			System.out.println("!!!!!!!!!!!!! blnDroppedPiece is true");
 			newgamepiece.intColumn = intColumnDropped;
-			System.out.println("!!!!!!!!!!!!! intRowCoords is "+newgamepiece.intRowCoords);
-			System.out.println("!!!!!!!!!!!!! intY is "+newgamepiece.intY);
-			System.out.println("!!!!!!!!!!!!! intRow is "+newgamepiece.intRow);
 			if((newgamepiece.intY < newgamepiece.intRowCoords) && newgamepiece.intRow>0){
 				newgamepiece.dropAnimation(g);
 				
@@ -112,16 +106,9 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 		
 		//turn system
 		if (blnPlayedPiece == true && blnHasWon == false){
-			System.out.println("!!!! start turn system. intTurn is"+intTurn);
 			if(intTurn == 1){
-				newgamepiece.intB = 100;
-				//intTurn = 2;
-				System.out.println("!!! "+ intTurn);
 				blnPlayedPiece = false;
 			}else if (intTurn == 2){
-				newgamepiece.intB = 20;
-				//intTurn = 1;
-				System.out.println("! "+ intTurn);
 				blnPlayedPiece = false;
 			}
 		}
@@ -171,10 +158,7 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 	public void mouseMoved(MouseEvent evt){
 	}
 	public void mouseDragged(MouseEvent evt){
-		System.out.println("!!!! mouse dragged start");
-		System.out.println(" intTurn is "+intTurn);
 		if((isServer && intTurn==1) || (!isServer && intTurn ==2)) {
-			System.out.println(" intTurn is "+intTurn);
 		//dragging the gamepiece to the board
 		if(blnHoldingPiece == true && blnDroppedPiece == false){
 			intMouseX = evt.getX();
@@ -184,7 +168,6 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 			newgamepiece.intY = intMouseY;
 		}
 		}
-		System.out.println("!!!! mouse dragged end");
 	}
 	public void mouseExited(MouseEvent evt){
 	}
@@ -192,10 +175,8 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 		
 	}
 	public void mouseReleased(MouseEvent evt){
-		System.out.println("!!!!! mouse released");
-		System.out.println("!!!!! intTurn is "+intTurn);
+
 		if((isServer && intTurn==1) || (!isServer && intTurn ==2)) {
-			System.out.println(" intTurn is "+intTurn);
 			if(blnHoldingPiece) {
 				blnHoldingPiece = false;
 				intMouseX = evt.getX();
@@ -207,17 +188,14 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 					ConnectPiece newgamepiece = new ConnectPiece();
 					newgamepiece.intColumn = intColumnDropped;
 					blnDroppedPiece = true;
-					System.out.println("Column dropped: "+intColumnDropped);
 					System.out.println("!!! ssm event send out");
 					ssm.sendText(prefix+","+intColumnDropped);
 					
-					System.out.println("WHOS TURN: "+ intTurn);
 				}else if(intMouseX >= 150 && intMouseX < 250){
 					intColumnDropped = 1;
 					ConnectPiece newgamepiece = new ConnectPiece();
 					newgamepiece.intColumn = intColumnDropped;
 					blnDroppedPiece = true;
-					System.out.println("Column dropped: "+intColumnDropped);
 					System.out.println("!!! ssm event send out");
 					ssm.sendText(prefix+","+intColumnDropped);
 				
@@ -226,7 +204,6 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 					ConnectPiece newgamepiece = new ConnectPiece();
 					newgamepiece.intColumn = intColumnDropped;
 					blnDroppedPiece = true;
-					System.out.println("Column dropped: "+intColumnDropped);
 					System.out.println("!!! ssm event send out");
 					ssm.sendText(prefix+","+intColumnDropped);
 					
@@ -235,7 +212,6 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 					ConnectPiece newgamepiece = new ConnectPiece();
 					newgamepiece.intColumn = intColumnDropped;
 					blnDroppedPiece = true;
-					System.out.println("Column dropped: "+intColumnDropped);
 					System.out.println("!!! ssm event send out");
 					ssm.sendText(prefix+","+intColumnDropped);
 					
@@ -244,7 +220,6 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 					ConnectPiece newgamepiece = new ConnectPiece();
 					newgamepiece.intColumn = intColumnDropped;
 					blnDroppedPiece = true;
-					System.out.println("Column dropped: "+intColumnDropped);
 					System.out.println("!!! ssm event send out");
 					ssm.sendText(prefix+","+intColumnDropped);
 					
@@ -253,7 +228,6 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 					ConnectPiece newgamepiece = new ConnectPiece();
 					newgamepiece.intColumn = intColumnDropped;
 					blnDroppedPiece = true;
-					System.out.println("Column dropped: "+intColumnDropped);
 					System.out.println("!!! ssm event send out");
 					ssm.sendText(prefix+","+intColumnDropped);
 					
@@ -262,13 +236,11 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 					ConnectPiece newgamepiece = new ConnectPiece();
 					newgamepiece.intColumn = intColumnDropped;
 					blnDroppedPiece = true;
-					System.out.println("Column dropped: "+intColumnDropped);
 					System.out.println("!!! ssm event send out");
 					ssm.sendText(prefix+","+intColumnDropped);
 					
 				}
 		
-				//if()
 				//adding to the board array
 				if(blnDroppedPiece) {
 					arrayboard.addPosition(intColumnDropped);
@@ -283,7 +255,6 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
                     changeTurn();
                 }
 			}
-			System.out.println("!!!! mouse released method end");
 		}
 	}
 	
@@ -295,24 +266,20 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 		}
 	}
 	public void mousePressed(MouseEvent evt){
-		System.out.println("!!!! mouse pressed start");
 		if((isServer && intTurn==1) || (!isServer && intTurn ==2)) {
-			System.out.println(" intTurn is "+intTurn);
-		//getting mouse position
-		int intMouseX = evt.getX();
-		int intMouseY = evt.getY();
-		//checking if player grabs the pieces
-		if(SwingUtilities.isLeftMouseButton(evt)&& intMouseX>=920 && intMouseX<=1150 && intMouseY >= 480 && intMouseY <= 580){
-			//gamepiece will follow the mouse
-			newgamepiece.intX = intMouseX;
-			newgamepiece.intY = intMouseY;
-			//generate new game piece to put down
-			ConnectPiece newgamepiece = new ConnectPiece();
-			this.blnHoldingPiece = true;
-			System.out.println("pressed within range of pieces");
+			//getting mouse position
+			int intMouseX = evt.getX();
+			int intMouseY = evt.getY();
+			//checking if player grabs the pieces
+			if(SwingUtilities.isLeftMouseButton(evt)&& intMouseX>=920 && intMouseX<=1150 && intMouseY >= 480 && intMouseY <= 580){
+				//gamepiece will follow the mouse
+				newgamepiece.intX = intMouseX;
+				newgamepiece.intY = intMouseY;
+				//generate new game piece to put down
+				ConnectPiece newgamepiece = new ConnectPiece();
+				this.blnHoldingPiece = true;
+			}
 		}
-		}
-		System.out.println("!!!! mouse pressed end");	
 	}
 	public void mouseClicked(MouseEvent evt){
 	}
@@ -332,8 +299,6 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 			strBoardFile = strThemeElements[2];
 			strP1File = strThemeElements[3];
 			strP2File = strThemeElements[4];
-			//newgamepiece.strPlayer1File = strP1File;
-			//newgamepiece.strPlayer2File = strP2File;
 			
 			thebackground = ImageIO.read(new File(System.getProperty("user.dir") + "\\Pictures\\" + strBackgroundFile));
 			theboard = ImageIO.read(new File(System.getProperty("user.dir") + "\\Pictures\\" + strBoardFile));

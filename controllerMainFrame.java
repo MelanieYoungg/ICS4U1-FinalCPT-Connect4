@@ -275,7 +275,6 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 						startMenu.currentTheme.setText("Current Theme: Original");
 					}
 				}else if (textArray[0].equals("win")){
-					System.out.println("you have won");
 					strWinner = textArray[2];
 					intwinReceived = intwinReceived+1;
 					gameplaypanel.blnHasWon = true;
@@ -363,7 +362,6 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 		gameplaypanel.arrayboard.addPosition(gameplaypanel.intColumnDropped);
 		gameplaypanel.newgamepiece.intRow = gameplaypanel.arrayboard.intCurrentRow;
 		for(int intRows = 5; intRows >= 0; intRows--){
-			System.out.println("!!!! intRows are "+intRows);
 			if(gameplaypanel.arrayboard.intBoard[intRows][gameplaypanel.intColumnDropped] != 0){
 				gameplaypanel.newgamepiece.intRow = intRows;
 			}
