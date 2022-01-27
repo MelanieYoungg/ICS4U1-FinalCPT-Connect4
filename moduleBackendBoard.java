@@ -1,11 +1,11 @@
 /**
- * <h1>moduleBackendBoard.java</h1>
+ * moduleBackendBoard.java
  * This class allows the controllerMainFrame.java class to
  * 	- calculate if there is a win in the game connect4,<p>
  * 	- interface and allow players to add pieces to the column<p>
  *  - display the state of the board in a system.out.println() for troubleshooting<p>
  * And uses a 6x7 2D array to hold the game state of the board<p>
- * This was written specifically for the ICS4U1-FinalCPT-Connect4 Project<p>
+ * This was written specifically for the ICS4U1-FinalCPT-Connect4 Project
  *
  * @author  Ethan Rong, Leo Li, Melanie Young
  * @version 1.0
@@ -121,7 +121,6 @@ public class moduleBackendBoard{
 	//Printout Screen (used for troubleshooting)
 	/**
 	 * Used for troubleshooting to print out the entire board
-	 * @return void
 	 */
 	public void printScreen(){
 		System.out.println("0\t1\t2\t3\t4\t5\t6");
