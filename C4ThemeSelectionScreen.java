@@ -39,10 +39,10 @@ public class C4ThemeSelectionScreen extends JPanel{
 	public C4ThemeSelectionScreen(){
 		super();
 		try{
-			imgBackground = ImageIO.read(new File(System.getProperty("user.dir") + "\\Pictures\\" + strBackgroundFile));
-			imgChristmas = ImageIO.read(new File(System.getProperty("user.dir") + "\\Pictures\\" + strChristmasTheme));
-			imgOriginal = ImageIO.read(new File(System.getProperty("user.dir") + "\\Pictures\\" + strOriginalTheme));
-			imgEaster = ImageIO.read(new File(System.getProperty("user.dir") + "\\Pictures\\" + strEasterTheme));
+			imgBackground = ImageIO.read(new File(strBackgroundFile));
+			imgChristmas = ImageIO.read(new File(strChristmasTheme));
+			imgOriginal = ImageIO.read(new File(strOriginalTheme));
+			imgEaster = ImageIO.read(new File(strEasterTheme));
 		}catch(IOException e){
 			System.out.println("Error loading image");
 		}

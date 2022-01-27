@@ -300,11 +300,11 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 			strP1File = strThemeElements[3];
 			strP2File = strThemeElements[4];
 			
-			thebackground = ImageIO.read(new File(System.getProperty("user.dir") + "\\Pictures\\" + strBackgroundFile));
-			theboard = ImageIO.read(new File(System.getProperty("user.dir") + "\\Pictures\\" + strBoardFile));
-			player1piece = ImageIO.read(new File(System.getProperty("user.dir") + "\\Pictures\\" + strP1File));
+			thebackground = ImageIO.read(new File(strBackgroundFile));
+			theboard = ImageIO.read(new File(strBoardFile));
+			player1piece = ImageIO.read(new File(strP1File));
 			newgamepiece.player1piece = this.player1piece;
-			player2piece = ImageIO.read(new File(System.getProperty("user.dir") + "\\Pictures\\" + strP2File));
+			player2piece = ImageIO.read(new File(strP2File));
 			newgamepiece.player2piece = this.player2piece;
 			
 		}catch(IOException e){

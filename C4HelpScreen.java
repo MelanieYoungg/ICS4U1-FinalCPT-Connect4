@@ -141,9 +141,9 @@ public class C4HelpScreen extends JPanel implements ActionListener, MouseListene
 		this.addMouseListener(this);
 		this.addMouseMotionListener(this);
 		try{
-			helpbackground = ImageIO.read(new File(System.getProperty("user.dir") + "\\Pictures\\" + "Connect4BG.jpg"));
-			helpboard = ImageIO.read(new File(System.getProperty("user.dir") + "\\Pictures\\" + "helpboard.png"));
-			helpgamepiece = ImageIO.read(new File(System.getProperty("user.dir") + "\\Pictures\\" + "P1original.png"));
+			helpbackground = ImageIO.read(new File("Connect4BG.jpg"));
+			helpboard = ImageIO.read(new File("helpboard.png"));
+			helpgamepiece = ImageIO.read(new File("P1original.png"));
 			
 		}catch(IOException e){
 			System.out.println("Error loading image");
