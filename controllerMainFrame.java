@@ -4,7 +4,6 @@ import java.awt.event.*;
 import javax.swing.event.*;
 import java.io.*;
 
-
 public class controllerMainFrame implements ActionListener,ChangeListener {
 	//PROPERTIES
 	JFrame theframe = new JFrame("Connect 4");
@@ -15,7 +14,7 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 	//Screens
 	C4GameplayScreen gameplaypanel = new C4GameplayScreen();
 	C4HelpScreen helppanel = new C4HelpScreen();
-	C4StartMenu startMenu = new C4StartMenu();
+	C4StartMenu startMenu;
 	C4WinnerLoserScreen winnerLoserScreen = new C4WinnerLoserScreen();
 	C4ThemeSelectionScreen themeSelectionScreen = new C4ThemeSelectionScreen();
 
@@ -42,6 +41,21 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 		}catch(IOException e){
 			System.out.println("File not found");
 		}
+		startMenu.currentTheme.setText("Current Theme: " + strTheme);
+	}
+	public String getTheme(){
+		try{
+			BufferedReader txtTheme = new BufferedReader(new FileReader("themes.txt"));
+			while(true){
+				String[] strLine = txtTheme.readLine().split(",");
+				if(strLine[0].equals("Current")) {
+					return strLine[1];
+				}
+			}
+		}catch (IOException e){
+			System.out.println("File Not Found");
+		}
+		return "f";
 	}
 	public void actionPerformed(ActionEvent evt){
 		if(evt.getSource() == startMenu.serverButton){
@@ -102,7 +116,6 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 		//Menu Items
 		else if(evt.getSource() == startMenu.menuItemChristmas){
 			changeTheme("Christmas");
-
 		}else if(evt.getSource() == startMenu.menuItemOriginal){
 			changeTheme("Original");
 		}else if(evt.getSource() == startMenu.menuItemEaster){
@@ -282,6 +295,7 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 	
 	//constructor
 	public controllerMainFrame(){
+		startMenu = new C4StartMenu(getTheme().substring(0, 1).toUpperCase() + getTheme().substring(1));
 		theframe = new JFrame("Connect 4");
 		startMenu.setPreferredSize(new Dimension(1280, 720));
 		startMenu.userName.addActionListener(this);
@@ -320,6 +334,7 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 	
 	//MAIN PROGRAM
 	public static void main(String[] args){
+		new controllerMainFrame();
 		new controllerMainFrame();
 	}
 }

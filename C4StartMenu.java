@@ -22,8 +22,7 @@ public class C4StartMenu extends JPanel {//implements KeyListener, ActionListene
 	JButton clientButton;
 	JButton playButton;
 	JButton helpButton;
-	JButton themeButton;
-	JLabel textrecievedlabel;
+	JLabel currentTheme;
 	BufferedImage theBackGroundImg;
 
 	//Menu Selection
@@ -42,7 +41,6 @@ public class C4StartMenu extends JPanel {//implements KeyListener, ActionListene
 	//METHODS
 	public void paintComponent(Graphics g){		
 		g.drawImage(theBackGroundImg, 0, 0, null);
-			
 	}
 		
 	public void actionPerformed(ActionEvent evt){}
@@ -51,7 +49,7 @@ public class C4StartMenu extends JPanel {//implements KeyListener, ActionListene
 	public void keyTyped(KeyEvent evt){}
 	
 	//CONSTRUCTOR
-	public C4StartMenu (){
+	public C4StartMenu (String strTheme){
 		super();
 		try{
 			theBackGroundImg = ImageIO.read(new File(System.getProperty("user.dir") + "\\Pictures\\Connect4BG.jpg"));
@@ -130,6 +128,13 @@ public class C4StartMenu extends JPanel {//implements KeyListener, ActionListene
 		helpButton.setSize(300, 40);
 		helpButton.setLocation(680, 430);
 		this.add(helpButton);
+
+		currentTheme = new JLabel("Current Theme: " + strTheme);
+		currentTheme.setLocation(500, 570);
+		currentTheme.setSize(1000, 40);
+		currentTheme.setFont(new Font("Serif", Font.PLAIN, 30));
+		statusLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		this.add(currentTheme);
 
 		themeMenu.add(menuItemChristmas);
 		themeMenu.add(menuItemOriginal);
