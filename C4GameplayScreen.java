@@ -279,7 +279,9 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 						ssm.sendText("win"+","+intTurn+","+strUsername);
 					}
 				}
-				changeTurn();
+				if(intMouseX >= 50 && intMouseX <= 750){
+                    changeTurn();
+                }
 			}
 			System.out.println("!!!! mouse released method end");
 		}
