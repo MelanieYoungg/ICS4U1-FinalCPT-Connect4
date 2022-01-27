@@ -5,7 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8c0f61da-ca2a-40b3-bcba-fd57a1b9813a" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/C4GameplayScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/C4GameplayScreen.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jar File/connectFour.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jar File/themes.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Jar File/themes.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllerMainFrame.class" beforeDir="false" afterPath="$PROJECT_DIR$/controllerMainFrame.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllerMainFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/controllerMainFrame.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,6 +30,7 @@
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RunManager" selected="Application.frontend">
