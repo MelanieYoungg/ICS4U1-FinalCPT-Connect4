@@ -109,12 +109,12 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 				gameplaypanel.strBoardFile = gameplaypanel.strThemeElements[2];
 				gameplaypanel.strP1File = gameplaypanel.strThemeElements[3];
 				gameplaypanel.strP2File = gameplaypanel.strThemeElements[4];
-				
-				gameplaypanel.thebackground = ImageIO.read(new File(gameplaypanel.strBackgroundFile));
-				gameplaypanel.theboard = ImageIO.read(new File(gameplaypanel.strBoardFile));
-				gameplaypanel.player1piece = ImageIO.read(new File(gameplaypanel.strP1File));
+
+				gameplaypanel.thebackground = ImageIO.read(this.getClass().getResourceAsStream(gameplaypanel.strBackgroundFile));
+				gameplaypanel.theboard = ImageIO.read(this.getClass().getResourceAsStream(gameplaypanel.strBoardFile));
+				gameplaypanel.player1piece = ImageIO.read(this.getClass().getResourceAsStream(gameplaypanel.strP1File));
 				gameplaypanel.newgamepiece.player1piece = gameplaypanel.player1piece;
-				gameplaypanel.player2piece = ImageIO.read(new File(gameplaypanel.strP2File));
+				gameplaypanel.player2piece = ImageIO.read(this.getClass().getResourceAsStream(gameplaypanel.strP2File));
 				gameplaypanel.newgamepiece.player2piece = gameplaypanel.player2piece;
 			 
 			}catch(IOException e){
