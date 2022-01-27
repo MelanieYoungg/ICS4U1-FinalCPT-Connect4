@@ -307,7 +307,7 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 
 			newgamepiece.player1piece = this.player1piece;
 			newgamepiece.player2piece = this.player2piece;
-		}catch(IOException e) {}
+		}catch(IOException e) {
 			System.out.println("Error loading image");
 		}
 
