@@ -25,7 +25,7 @@ public class C4WinnerLoserScreen extends JPanel implements ActionListener{
 	public C4WinnerLoserScreen(){
 		super();
 		try{
-			imgBackground = ImageIO.read(new File(strBackgroundFile));
+			imgBackground = ImageIO.read(this.getClass().getResourceAsStream(strBackgroundFile));
 		}catch(IOException e){
 			System.out.println("Error loading image");
 		}
