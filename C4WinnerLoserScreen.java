@@ -20,7 +20,6 @@ public class C4WinnerLoserScreen extends JPanel implements ActionListener{
 	}
 	public void actionPerformed(ActionEvent evt){
 	}
-	
 
 	//CONSTRUCTOR
 	public C4WinnerLoserScreen(){

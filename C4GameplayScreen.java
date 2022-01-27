@@ -33,9 +33,6 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 	ConnectPiece newgamepiece = new ConnectPiece();
 	moduleBackendBoard arrayboard = new moduleBackendBoard();
 	int intColumnDropped;
-	int intRowDropped = 5;
-	int intPlayedColumnCoords;
-	int intPlayedRowCoords;
 	int intMouseX;
 	int intMouseY;
 	int intTurn;// = 1;

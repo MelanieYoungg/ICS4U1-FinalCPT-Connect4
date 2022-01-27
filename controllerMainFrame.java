@@ -72,8 +72,8 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 		    if(gotConnect){
 		    	System.out.println("got connection!");
 		    	startMenu.statusLabel.setText("Server Start");
-				
-		     }else{
+				startMenu.menuBar.setVisible(false);
+			}else{
 		    	startMenu.statusLabel.setText("Server Start failed");
 		    }
 		      
@@ -90,6 +90,9 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 				 startMenu.ipAddress.setEnabled(false);
 				 startMenu.userName.setEnabled(false);
 				 startMenu.menuBar.setVisible(false);
+				 ///
+				 startMenu.currentTheme.setText("Current Theme: " + getTheme().substring(0, 1).toUpperCase() + getTheme().substring(1));
+
 			 }else {
 				 startMenu.statusLabel.setText("Server is unavilable.");
 				 startMenu.clientButton.setEnabled(true);
@@ -186,8 +189,9 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 			startMenu.setPreferredSize(new Dimension(1280, 720));
 			theframe.setContentPane(startMenu);
 			theframe.pack();
+
+		//Gameplay SSM
 		}else if(evt.getSource() == gameplaypanel.ssm) {
-			
 			String strMessage = "";
 	    	String ssmText = gameplaypanel.ssm.readText();
 	    	String[] textArray = ssmText.split(",");

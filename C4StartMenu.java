@@ -7,7 +7,7 @@ import java.util.*;
 import javax.imageio.*;
 import javax.swing.*;
 
-public class C4StartMenu extends JPanel {//implements KeyListener, ActionListener{
+public class C4StartMenu extends JPanel {
 	//PROPERTIES
 	//JFrame theFrame;
 	JPanel thePanel;
@@ -42,11 +42,6 @@ public class C4StartMenu extends JPanel {//implements KeyListener, ActionListene
 	public void paintComponent(Graphics g){		
 		g.drawImage(theBackGroundImg, 0, 0, null);
 	}
-		
-	public void actionPerformed(ActionEvent evt){}
-	public void keyReleased(KeyEvent evt){}
-	public void keyPressed(KeyEvent evt){}
-	public void keyTyped(KeyEvent evt){}
 	
 	//CONSTRUCTOR
 	public C4StartMenu (String strTheme){
@@ -146,13 +141,5 @@ public class C4StartMenu extends JPanel {//implements KeyListener, ActionListene
 		themeMenu.setFont(new Font("Serif", Font.PLAIN, 40));
 		themeMenu.setSize(1280, 50);
 		this.add(menuBar);
-
-		/*textrecieved = new JTextArea();
-		theScroll = new JScrollPane(textrecieved);
-		theScroll.setSize(300,325);
-		theScroll.setLocation(0, 125);
-		textrecieved.setEnabled(false);
-		thePanel.add(theScroll);  */
-		//theFrame.setVisible(true);
 	}
 }
