@@ -78,18 +78,18 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 		    }
 		      
 		 }else if(evt.getSource() == startMenu.clientButton) {
-			 startMenu.clientButton.setEnabled(false); 
-			 startMenu.serverButton.setVisible(false);
-			 gameplaypanel.isServer = false;
-			 startMenu.ipAddress.setEnabled(false);
-			 startMenu.userName.setEnabled(false);
-			 startMenu.menuBar.setVisible(false);
 			 gameplaypanel.ssm = new SuperSocketMaster(startMenu.ipAddress.getText(), port, this);
-			 gameplaypanel.prefix = "Client";
-			 gameplaypanel.intTurn = 2;
 			 boolean gotConnect = gameplaypanel.ssm.connect();
 			 if(gotConnect){
 			     startMenu.statusLabel.setText("Server connected.");
+				 gameplaypanel.prefix = "Client";
+				 gameplaypanel.intTurn = 2;
+				 startMenu.clientButton.setEnabled(false);
+				 startMenu.serverButton.setVisible(false);
+				 gameplaypanel.isServer = false;
+				 startMenu.ipAddress.setEnabled(false);
+				 startMenu.userName.setEnabled(false);
+				 startMenu.menuBar.setVisible(false);
 			 }else {
 				 startMenu.statusLabel.setText("Server is unavilable.");
 				 startMenu.clientButton.setEnabled(true);
@@ -110,7 +110,6 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 			 helppanel.setPreferredSize(new Dimension(1280, 720));
 			 theframe.setContentPane(helppanel);
 			 theframe.pack();
-			    
 		 }
 
 		//Menu Items
@@ -124,7 +123,9 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 			themeSelectionScreen.setPreferredSize(new Dimension(1280, 720));
 			theframe.setContentPane(themeSelectionScreen);
 			theframe.pack();
-		}//C4HelpScreen.java
+		}
+
+		//C4HelpScreen.java
 		else if(evt.getSource() == helppanel.backbutton) {
 			startMenu.setPreferredSize(new Dimension(1280, 720));
 			theframe.setContentPane(startMenu);
