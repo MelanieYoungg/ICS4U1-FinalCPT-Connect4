@@ -140,10 +140,13 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 		//Menu Items
 		else if(evt.getSource() == startMenu.menuItemChristmas){
 			changeTheme("Christmas");
+			gameplaypanel.ssm.sendText("theme,Christmas");
 		}else if(evt.getSource() == startMenu.menuItemOriginal){
 			changeTheme("Original");
+			gameplaypanel.ssm.sendText("theme,Original");
 		}else if(evt.getSource() == startMenu.menuItemEaster){
 			changeTheme("Easter");
+			gameplaypanel.ssm.sendText("theme,Easter");
 		}else if(evt.getSource() == startMenu.menuItemTheme){
 			themeSelectionScreen.setPreferredSize(new Dimension(1280, 720));
 			theframe.setContentPane(themeSelectionScreen);
@@ -219,10 +222,13 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 		//C4ThemeSelectionScreen.java
 		else if(evt.getSource() == themeSelectionScreen.christmasButton){
 			changeTheme("Christmas");
+			gameplaypanel.ssm.sendText("theme,Christmas");
 		}else if(evt.getSource() == themeSelectionScreen.originalButton){
 			changeTheme("Original");
+			gameplaypanel.ssm.sendText("theme,Original");
 		}else if(evt.getSource() == themeSelectionScreen.easterButton){
 			changeTheme("Easter");
+			gameplaypanel.ssm.sendText("theme,Easter");
 		}else if(evt.getSource() == themeSelectionScreen.backButton){
 			startMenu.setPreferredSize(new Dimension(1280, 720));
 			theframe.setContentPane(startMenu);
@@ -239,7 +245,7 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 	    			System.out.println("!!! event from server");
 	    			if(!gameplaypanel.isServer) {
 	    				gameplaypanel.intTurn = 2;
-	    			
+
 	    				gameplaypanel.blnDroppedPiece = true;
 	    				gameplaypanel.intColumnDropped = Integer.parseInt(textArray[1]);
 	    			}
@@ -248,7 +254,7 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 	    			//gameplaypanel.intTurn = 2;
 	    			System.out.println("!!! event from server, intTurn is "+gameplaypanel.intTurn);
 	    		}else if(textArray[0].equals("Client")) {
-	    			
+
 	    			if(gameplaypanel.isServer) {
 	    				gameplaypanel.intTurn = 1;
 	    				gameplaypanel.blnDroppedPiece = true;
@@ -257,7 +263,18 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 	    			//ConnectPiece newgamepiece = new ConnectPiece();
 	    			setConnectPiece();
 	    			//gameplaypanel.intTurn = 1;
-	    		}else if (textArray[0].equals("win")){
+	    		}else if (textArray[0].equals("theme")){
+					if(textArray[1].equals("Easter")){
+						changeTheme("Easter");
+						startMenu.currentTheme.setText("Current Theme: Easter");
+					}else if(textArray[1].equals("Christmas")){
+						changeTheme("Christmas");
+						startMenu.currentTheme.setText("Current Theme: Christmas");
+					}else if(textArray[1].equals("Original")){
+						changeTheme("Original");
+						startMenu.currentTheme.setText("Current Theme: Original");
+					}
+				}else if (textArray[0].equals("win")){
 					System.out.println("you have won");
 					strWinner = textArray[2];
 					intwinReceived = intwinReceived+1;
@@ -396,7 +413,6 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 	
 	//MAIN PROGRAM
 	public static void main(String[] args){
-		new controllerMainFrame();
 		new controllerMainFrame();
 	}
 }
