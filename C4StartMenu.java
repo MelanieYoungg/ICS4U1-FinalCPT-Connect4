@@ -47,7 +47,7 @@ public class C4StartMenu extends JPanel {
 	public C4StartMenu (String strTheme){
 		super();
 		try{
-			theBackGroundImg = ImageIO.read(new File("Connect4BG.jpg"));
+			theBackGroundImg = ImageIO.read(this.getClass().getResourceAsStream("Connect4BG.jpg"));
 		}catch(IOException e){
 			System.out.println("Error loading image");
 		}

@@ -291,7 +291,7 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 		this.addMouseListener(this);
 		this.addMouseMotionListener(this);
 		
-		//loading pictures	
+		//loading pictures
 		try{
 			strTheme = this.LoadTheme();
 			strThemeElements = this.LoadBG();
@@ -299,17 +299,18 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 			strBoardFile = strThemeElements[2];
 			strP1File = strThemeElements[3];
 			strP2File = strThemeElements[4];
-			
-			thebackground = ImageIO.read(new File(strBackgroundFile));
-			theboard = ImageIO.read(new File(strBoardFile));
-			player1piece = ImageIO.read(new File(strP1File));
+
+			thebackground = ImageIO.read(this.getClass().getResourceAsStream(strBackgroundFile));
+			theboard = ImageIO.read(this.getClass().getResourceAsStream(strBoardFile));
+			player1piece = ImageIO.read(this.getClass().getResourceAsStream(strP1File));
+			player2piece = ImageIO.read(this.getClass().getResource(strP2File));
+
 			newgamepiece.player1piece = this.player1piece;
-			player2piece = ImageIO.read(new File(strP2File));
 			newgamepiece.player2piece = this.player2piece;
-			
-		}catch(IOException e){
+		}catch(IOException e) {}
 			System.out.println("Error loading image");
 		}
+
 		this.setPreferredSize(new Dimension(1280,720));
 		this.setLayout(null);
 		
