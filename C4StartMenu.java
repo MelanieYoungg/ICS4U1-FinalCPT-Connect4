@@ -141,5 +141,6 @@ public class C4StartMenu extends JPanel {
 		themeMenu.setFont(new Font("Serif", Font.PLAIN, 40));
 		themeMenu.setSize(1280, 50);
 		this.add(menuBar);
+		menuBar.setVisible(false);
 	}
 }

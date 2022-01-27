@@ -3,6 +3,8 @@ import javax.swing.*;
 import java.awt.event.*;
 import javax.swing.event.*;
 import java.io.*;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 
 public class controllerMainFrame implements ActionListener,ChangeListener {
 	//PROPERTIES
@@ -72,7 +74,7 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 		    if(gotConnect){
 		    	System.out.println("got connection!");
 		    	startMenu.statusLabel.setText("Server Start");
-				startMenu.menuBar.setVisible(false);
+				startMenu.menuBar.setVisible(true);
 			}else{
 		    	startMenu.statusLabel.setText("Server Start failed");
 		    }
@@ -100,6 +102,25 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 			 }
 			    
 		 }else if(evt.getSource() == startMenu.playButton) {
+			 try{
+				gameplaypanel.strTheme = gameplaypanel.LoadTheme();
+				gameplaypanel.strThemeElements = gameplaypanel.LoadBG();
+				gameplaypanel.strBackgroundFile = gameplaypanel.strThemeElements[1];
+				gameplaypanel.strBoardFile = gameplaypanel.strThemeElements[2];
+				gameplaypanel.strP1File = gameplaypanel.strThemeElements[3];
+				gameplaypanel.strP2File = gameplaypanel.strThemeElements[4];
+				
+				gameplaypanel.thebackground = ImageIO.read(new File(System.getProperty("user.dir") + "\\Pictures\\" + gameplaypanel.strBackgroundFile));
+				gameplaypanel.theboard = ImageIO.read(new File(System.getProperty("user.dir") + "\\Pictures\\" + gameplaypanel.strBoardFile));
+				gameplaypanel.player1piece = ImageIO.read(new File(System.getProperty("user.dir") + "\\Pictures\\" + gameplaypanel.strP1File));
+				gameplaypanel.newgamepiece.player1piece = gameplaypanel.player1piece;
+				gameplaypanel.player2piece = ImageIO.read(new File(System.getProperty("user.dir") + "\\Pictures\\" + gameplaypanel.strP2File));
+				gameplaypanel.newgamepiece.player2piece = gameplaypanel.player2piece;
+			 
+			}catch(IOException e){
+				System.out.println("Error loading image");
+			}
+
 			 if(startMenu.ipAddress.getText() != null && startMenu.userName.getText() != null 
 					 && !startMenu.ipAddress.getText().isEmpty() && !startMenu.userName.getText().isEmpty() 
 					 && (!startMenu.serverButton.isVisible() || !startMenu.clientButton.isVisible())) {
