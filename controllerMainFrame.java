@@ -47,8 +47,7 @@ public class controllerMainFrame implements ActionListener,ChangeListener {
 	}
 	public String getTheme(){
 		try{
-			BufferedReader txtTheme = new BufferedReader(new InputStreamReader(this.getClass().getResourceAsStream("themes.txt")));
-			//BufferedReader txtTheme = new BufferedReader(new FileReader("themes.txt"));
+			BufferedReader txtTheme = new BufferedReader(new FileReader("themes.txt"));
 			while(true){
 				String[] strLine = txtTheme.readLine().split(",");
 				if(strLine[0].equals("Current")) {

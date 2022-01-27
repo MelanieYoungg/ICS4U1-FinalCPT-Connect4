@@ -118,7 +118,7 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 	public String LoadTheme(){
 		strLine = "";
 		try{
-			BufferedReader themefile = new BufferedReader(new InputStreamReader(this.getClass().getResourceAsStream("themes.txt")));;
+			BufferedReader themefile = new BufferedReader(new FileReader("themes.txt"));
 			while(strLine != null){
 				strLine = themefile.readLine();
 				if(strLine != null){
@@ -138,7 +138,7 @@ public class C4GameplayScreen extends JPanel implements ActionListener, MouseLis
 	public String[] LoadBG(){
 		strLine = "";
 		try{
-			BufferedReader themefile = new BufferedReader(new InputStreamReader(this.getClass().getResourceAsStream("themes.txt")));;
+			BufferedReader themefile = new BufferedReader(new FileReader("themes.txt"));
 			while(strLine != null){
 				strLine = themefile.readLine();
 				if(strLine != null){
